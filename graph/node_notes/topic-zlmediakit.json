@@ -1,0 +1,8 @@
+{
+  "ok": true,
+  "id": "topic-zlmediakit",
+  "note": "### 是什么\nZLMediaKit 是一个轻量、高性能的流媒体服务器，支持 RTMP、HTTP-FLV、HLS、RTSP 等多种协议分发。在本项目中，它负责接收 C++ 程序推送的 RTMP 流，再转换成其他协议地址供播放。\n\n### 项目中怎么用\n- **推流方**：C++ 程序通过 FFmpeg API 硬件编码后，将流推送到 `rtmp://127.0.0.1:1935/ghostapp/uav0`。\n- **播放方**：用 `ffplay rtmp://<板子IP>:1935/ghostapp/uav0` 或浏览器拉 HTTP-FLV。\n- **部署**：ZLMediaKit 运行在 Docker 容器内，映射端口 `1935`（RTMP）、`80`（HTTP 播放）。需要固定 `config.ini` 中的 `secret`，避免与 API 端口（`8090`）不一致导致查询失败。\n\n### 关键点\n- **端口与 secret 必须一致**：项目曾因端口映射和 secret 不匹配导致 `ZLM API 查不到` 问题，最终固定配置解决。\n- **流协议自动转换**：推 RTMP 后，ZLMediaKit 自动提供 RTMP、HTTP-FLV、HLS 三种拉流地址，无需额外服务。\n- **调试命令**：用 `./status.sh` 查看推流状态，或用 `ffplay` 直接在板子上验证画面是否正常。",
+  "source": "deepseek",
+  "model": "deepseek-v4-flash",
+  "updated_at": 1783499571
+}

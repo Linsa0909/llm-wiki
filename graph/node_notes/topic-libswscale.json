@@ -1,0 +1,8 @@
+{
+  "ok": true,
+  "id": "topic-libswscale",
+  "note": "### 是什么\nlibswscale 是 FFmpeg 内置的**图像缩放与像素格式转换**库，处理分辨率缩放、色彩空间转换等底层操作。\n\n### 项目中怎么用\n在当前 Mino17 采集链路中，从摄像头读到的 `UYVY` 帧，先由 `sws_scale()` 裁剪为 `640x512` 并转换为 `YUV420P`，再送入 `h264_rkmpp` 硬件编码器。代码位置在采集循环的帧处理阶段，属于 **CPU 格式转换路径**。\n\n### 关键点\n- 当前依赖 **CPU** 完成格式转换，是推流链路的性能瓶颈之一。\n- 后续可考虑用 **RGA / GPU** 替代 `libswscale` 以降低 CPU 占用。\n- 编译链接需添加 `-lswscale`，依赖 `libswresample` 等。",
+  "source": "deepseek",
+  "model": "deepseek-v4-flash",
+  "updated_at": 1783499562
+}

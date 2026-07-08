@@ -1,0 +1,6 @@
+﻿.env.local
+__pycache__/
+*.pyc
+kb_patch/
+.DS_Store
+Thumbs.db

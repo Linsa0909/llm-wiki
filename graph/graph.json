@@ -1,0 +1,339 @@
+{
+  "nodes": [
+    {
+      "id": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
+      "label": "Mino17 RK3588 红外采集推流复盘",
+      "type": "project",
+      "doc": "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md",
+      "summary": "本项目已经把原先基于 `ffmpeg` 命令行的采集推流流程，改造成 **C++ 直接调用 FFmpeg/libav 库 API** 的方式，并在 RK3588 上通过 `h264_rkmpp` 完成 H264 硬件编码，再推流到 ZLMediaKit 分发。",
+      "tags": []
+    },
+    {
+      "id": "02_技术地图-c++调用ffmpeg库",
+      "label": "C++ 调用 FFmpeg 库",
+      "type": "concept",
+      "doc": "../02_技术地图/C++调用FFmpeg库.md",
+      "summary": "`ffmpeg` 既可以是命令行工具，也可以是一组可被 C/C++ 调用的库。本项目不是执行 `ffmpeg` 命令，而是在 C++ 中链接并调用 FFmpeg/libav 库。",
+      "tags": []
+    },
+    {
+      "id": "02_技术地图-docker离线部署",
+      "label": "Docker 离线部署",
+      "type": "concept",
+      "doc": "../02_技术地图/Docker离线部署.md",
+      "summary": "生成：",
+      "tags": []
+    },
+    {
+      "id": "02_技术地图-linux设备文件与v4l2",
+      "label": "Linux 设备文件与 V4L2",
+      "type": "concept",
+      "doc": "../02_技术地图/Linux设备文件与V4L2.md",
+      "summary": "Linux 下摄像头会被识别成 `/dev/videoX` 这类设备文件。程序不是“找到摄像头名字”就能工作，而是要打开正确的设备节点。",
+      "tags": []
+    },
+    {
+      "id": "02_技术地图-rk3588硬件编码rkmpp",
+      "label": "RK3588 硬件编码 rkmpp",
+      "type": "concept",
+      "doc": "../02_技术地图/RK3588硬件编码rkmpp.md",
+      "summary": "`rkmpp` 是 Rockchip MPP 的 FFmpeg 编码/解码接口。在 RK3588 上，使用 `h264_rkmpp` 可以把 H264 编码放到硬件单元执行，降低 CPU 压力。",
+      "tags": []
+    },
+    {
+      "id": "02_技术地图-zlmediakit流媒体分发",
+      "label": "ZLMediaKit 流媒体分发",
+      "type": "concept",
+      "doc": "../02_技术地图/ZLMediaKit流媒体分发.md",
+      "summary": "C++ 程序只负责把 H264 RTMP 流推到 ZLMediaKit。ZLMediaKit 负责把同一路流转成多种播放协议。",
+      "tags": []
+    },
+    {
+      "id": "03_问题库-ffmpeg开发库与运行库缺失",
+      "label": "FFmpeg 开发库与运行库缺失",
+      "type": "issue",
+      "doc": "../03_问题库/ffmpeg开发库与运行库缺失.md",
+      "summary": "",
+      "tags": []
+    },
+    {
+      "id": "03_问题库-zlm端口和secret不一致",
+      "label": "ZLM 端口和 secret 不一致",
+      "type": "issue",
+      "doc": "../03_问题库/ZLM端口和secret不一致.md",
+      "summary": "或 API 返回鉴权失败。",
+      "tags": []
+    },
+    {
+      "id": "03_问题库-脚本crlf和bom导致linux执行失败",
+      "label": "脚本 CRLF/BOM 导致 Linux 执行失败",
+      "type": "issue",
+      "doc": "../03_问题库/脚本CRLF和BOM导致Linux执行失败.md",
+      "summary": "Windows 写出的 shell 脚本可能带 BOM 或 CRLF。Linux 执行 shebang 时会把不可见字符也当作路径的一部分。",
+      "tags": []
+    },
+    {
+      "id": "04_设备与部署-mino17部署验收清单",
+      "label": "Mino17 部署验收清单",
+      "type": "deployment",
+      "doc": "../04_设备与部署/Mino17部署验收清单.md",
+      "summary": "预期：",
+      "tags": []
+    },
+    {
+      "id": "topic-libavdevice",
+      "label": "libavdevice",
+      "type": "library",
+      "doc": "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md",
+      "summary": "FFmpeg 设备输入输出库。本项目用它注册并打开 v4l2 摄像头设备，例如 /dev/video59。",
+      "tags": [
+        "FFmpeg",
+        "V4L2",
+        "采集"
+      ]
+    },
+    {
+      "id": "topic-libavformat",
+      "label": "libavformat",
+      "type": "library",
+      "doc": "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md",
+      "summary": "FFmpeg 封装与协议库。本项目用它打开输入流、创建 FLV/RTMP 输出并写入推流包。",
+      "tags": [
+        "FFmpeg",
+        "RTMP",
+        "封装"
+      ]
+    },
+    {
+      "id": "topic-libavcodec",
+      "label": "libavcodec",
+      "type": "library",
+      "doc": "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md",
+      "summary": "FFmpeg 编解码库。本项目用它调用 h264_rkmpp，在 RK3588 上完成 H264 硬件编码。",
+      "tags": [
+        "FFmpeg",
+        "H264",
+        "rkmpp"
+      ]
+    },
+    {
+      "id": "topic-libswscale",
+      "label": "libswscale",
+      "type": "library",
+      "doc": "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md",
+      "summary": "FFmpeg 图像缩放与像素格式转换库。本项目的 CPU 图像路径会用到格式转换能力。",
+      "tags": [
+        "FFmpeg",
+        "像素格式"
+      ]
+    },
+    {
+      "id": "topic-h264_rkmpp",
+      "label": "h264_rkmpp",
+      "type": "acceleration",
+      "doc": "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md",
+      "summary": "Rockchip MPP 暴露给 FFmpeg 的 H264 硬件编码器，本项目的硬件加速核心。",
+      "tags": [
+        "RK3588",
+        "硬件编码"
+      ]
+    },
+    {
+      "id": "topic-zlmediakit",
+      "label": "ZLMediaKit",
+      "type": "service",
+      "doc": "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md",
+      "summary": "流媒体服务。接收 C++ 程序推送的 RTMP 流，再分发为 RTMP、HTTP-FLV、HLS、RTSP 等播放地址。",
+      "tags": [
+        "流媒体",
+        "RTMP",
+        "HLS"
+      ]
+    },
+    {
+      "id": "topic-v4l2",
+      "label": "V4L2",
+      "type": "device",
+      "doc": "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md",
+      "summary": "Linux 视频采集接口。本项目通过它访问 Mino17 摄像头暴露出的 /dev/videoX 设备文件。",
+      "tags": [
+        "Linux",
+        "摄像头",
+        "设备文件"
+      ]
+    },
+    {
+      "id": "topic-libavutil",
+      "label": "libavutil",
+      "type": "library",
+      "doc": "../02_技术地图/C++调用FFmpeg库.md",
+      "summary": "FFmpeg 基础工具库，提供帧、包、时间基、错误处理和硬件上下文等基础能力。",
+      "tags": [
+        "FFmpeg",
+        "基础库"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
+      "target": "02_技术地图-c++调用ffmpeg库",
+      "label": "引用"
+    },
+    {
+      "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
+      "target": "02_技术地图-rk3588硬件编码rkmpp",
+      "label": "引用"
+    },
+    {
+      "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
+      "target": "02_技术地图-linux设备文件与v4l2",
+      "label": "引用"
+    },
+    {
+      "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
+      "target": "02_技术地图-zlmediakit流媒体分发",
+      "label": "引用"
+    },
+    {
+      "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
+      "target": "04_设备与部署-mino17部署验收清单",
+      "label": "引用"
+    },
+    {
+      "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
+      "target": "topic-libavdevice",
+      "label": "提到"
+    },
+    {
+      "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
+      "target": "topic-libavformat",
+      "label": "提到"
+    },
+    {
+      "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
+      "target": "topic-libavcodec",
+      "label": "提到"
+    },
+    {
+      "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
+      "target": "topic-libswscale",
+      "label": "提到"
+    },
+    {
+      "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
+      "target": "topic-h264_rkmpp",
+      "label": "提到"
+    },
+    {
+      "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
+      "target": "topic-zlmediakit",
+      "label": "提到"
+    },
+    {
+      "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
+      "target": "topic-v4l2",
+      "label": "提到"
+    },
+    {
+      "source": "02_技术地图-c++调用ffmpeg库",
+      "target": "topic-libavdevice",
+      "label": "提到"
+    },
+    {
+      "source": "02_技术地图-c++调用ffmpeg库",
+      "target": "topic-libavformat",
+      "label": "提到"
+    },
+    {
+      "source": "02_技术地图-c++调用ffmpeg库",
+      "target": "topic-libavcodec",
+      "label": "提到"
+    },
+    {
+      "source": "02_技术地图-c++调用ffmpeg库",
+      "target": "topic-libavutil",
+      "label": "提到"
+    },
+    {
+      "source": "02_技术地图-c++调用ffmpeg库",
+      "target": "topic-libswscale",
+      "label": "提到"
+    },
+    {
+      "source": "02_技术地图-c++调用ffmpeg库",
+      "target": "topic-h264_rkmpp",
+      "label": "提到"
+    },
+    {
+      "source": "02_技术地图-c++调用ffmpeg库",
+      "target": "topic-v4l2",
+      "label": "提到"
+    },
+    {
+      "source": "02_技术地图-docker离线部署",
+      "target": "topic-zlmediakit",
+      "label": "提到"
+    },
+    {
+      "source": "02_技术地图-linux设备文件与v4l2",
+      "target": "topic-v4l2",
+      "label": "提到"
+    },
+    {
+      "source": "02_技术地图-rk3588硬件编码rkmpp",
+      "target": "topic-h264_rkmpp",
+      "label": "提到"
+    },
+    {
+      "source": "02_技术地图-zlmediakit流媒体分发",
+      "target": "topic-zlmediakit",
+      "label": "提到"
+    },
+    {
+      "source": "03_问题库-ffmpeg开发库与运行库缺失",
+      "target": "topic-libavdevice",
+      "label": "提到"
+    },
+    {
+      "source": "03_问题库-ffmpeg开发库与运行库缺失",
+      "target": "topic-libavformat",
+      "label": "提到"
+    },
+    {
+      "source": "03_问题库-ffmpeg开发库与运行库缺失",
+      "target": "topic-libavcodec",
+      "label": "提到"
+    },
+    {
+      "source": "03_问题库-ffmpeg开发库与运行库缺失",
+      "target": "topic-libavutil",
+      "label": "提到"
+    },
+    {
+      "source": "03_问题库-ffmpeg开发库与运行库缺失",
+      "target": "topic-libswscale",
+      "label": "提到"
+    },
+    {
+      "source": "03_问题库-ffmpeg开发库与运行库缺失",
+      "target": "topic-v4l2",
+      "label": "提到"
+    },
+    {
+      "source": "03_问题库-zlm端口和secret不一致",
+      "target": "topic-zlmediakit",
+      "label": "提到"
+    },
+    {
+      "source": "04_设备与部署-mino17部署验收清单",
+      "target": "topic-h264_rkmpp",
+      "label": "提到"
+    },
+    {
+      "source": "04_设备与部署-mino17部署验收清单",
+      "target": "topic-v4l2",
+      "label": "提到"
+    }
+  ]
+}
