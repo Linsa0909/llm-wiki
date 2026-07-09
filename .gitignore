@@ -4,3 +4,5 @@ __pycache__/
 kb_patch/
 .DS_Store
 Thumbs.db
+raw/imports/
+graph/node_notes/

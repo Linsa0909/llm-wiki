@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Build graph/graph.json from Markdown wiki documents."""
 from __future__ import annotations
@@ -133,7 +133,10 @@ def main() -> int:
         node_type = str(fm.get("type") or TYPE_BY_DIR.get(top_dir, "note"))
         node_id = str(fm.get("id") or slug(path.relative_to(ROOT).with_suffix("").as_posix()))
         tags = fm.get("tags") if isinstance(fm.get("tags"), list) else []
-        node = {"id": node_id, "label": title, "type": node_type, "doc": rel_doc(path), "summary": str(fm.get("summary") or summary_from_body(body)), "tags": tags}
+        sources = fm.get("sources") if isinstance(fm.get("sources"), list) else []
+        docs_meta = fm.get("docs") if isinstance(fm.get("docs"), list) else []
+        doc_url = rel_doc(path)
+        node = {"id": node_id, "label": title, "type": node_type, "doc": doc_url, "docs": [doc_url] + [str(x) for x in docs_meta], "sources": [str(x) for x in sources], "summary": str(fm.get("summary") or summary_from_body(body)), "tags": tags}
         nodes.append(node)
         docs.append((path, node, fm, body, text))
         title_to_node[title] = node_id
@@ -158,7 +161,7 @@ def main() -> int:
                 continue
             topic_id = "topic-" + slug(topic)
             if not any(n["id"] == topic_id for n in nodes):
-                nodes.append({"id": topic_id, "label": topic, "type": meta["type"], "doc": node["doc"], "summary": meta["summary"], "tags": meta["tags"]})
+                nodes.append({"id": topic_id, "label": topic, "type": meta["type"], "doc": node["doc"], "docs": node.get("docs", [node["doc"]]), "sources": node.get("sources", []), "summary": meta["summary"], "tags": meta["tags"]})
             add_link(links, seen, source, topic_id, "提到")
 
     GRAPH.parent.mkdir(parents=True, exist_ok=True)

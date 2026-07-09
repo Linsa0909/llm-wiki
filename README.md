@@ -1,13 +1,17 @@
-﻿# LLM Wiki 个人知识库
+# LLM Wiki 个人知识库
 
-这是一个面向个人工程沉淀的本地 LLM Wiki。它把真实项目过程沉淀为 Markdown 文档，再自动编译成知识图谱；点击节点可以查看解释、编辑解释，或调用 DeepSeek 生成一次并写入本地缓存。
+LLM Wiki 是一个面向个人工程沉淀的本地知识库。它把真实项目过程、命令、问题排障和技术理解保存为 Markdown，再编译成可浏览、可搜索、可交互的知识图谱。
 
-## 核心目标
+这个项目的核心思路不是“每次问 AI 一遍”，而是把你的历史经验长期沉淀下来：原始资料进入 `raw/`，整理后的 Wiki 文档进入分类目录，图谱和 AI 解释作为派生视图存在。
 
-- 长期维护：知识以 Markdown 和 JSON 缓存落盘，不依赖一次性聊天记录。
-- 保留个人历史细节：文档来自自己做过的项目复盘、问题排查、部署记录和命令记录。
-- 图谱 + 文档双视图：图谱用于浏览关系，文档视图用于 Wiki 式阅读和搜索入口。
-- AI 只做编译助手：AI 输出会写入缓存，后续读取缓存，不重复调用。
+## 核心能力
+
+- Markdown Wiki：所有知识节点本质上都是 `.md` 文档，方便长期维护和迁移。
+- 知识图谱：自动读取 Markdown frontmatter、双链和主题关键词生成 `graph/graph.json`。
+- 智能导入：上传 Markdown 后可自动判断项目、技术、问题、部署、命令等节点，并生成候选关系和 Hub 建议。
+- 文档视图：在浏览器内打开 Markdown 文档，保留 Wiki 阅读体验。
+- 节点解释：节点可手动编辑说明，也可调用 DeepSeek 生成一次并缓存到本地。
+- 图谱交互：支持拖动画布、缩放、单节点拖动、项目节点框选、组拖动、空白点击取消选择。
 
 ## 启动
 
@@ -16,13 +20,13 @@ cd C:\Users\Linsa\Desktop\llm-wiki
 .\start.ps1
 ```
 
-浏览器打开：
+启动后访问：
 
 ```text
 http://127.0.0.1:8765/graph/index.html
 ```
 
-不要用 `file://` 打开图谱页面，因为新增节点、AI 生成、文档列表都依赖本地 HTTP 服务。
+不要直接用 `file://` 打开页面。新增节点、智能导入、AI 生成、文档读取都依赖本地 HTTP 服务。
 
 ## 目录结构
 
@@ -33,151 +37,101 @@ llm-wiki/
   02_技术地图/          技术概念、库、服务、工具
   03_问题库/            bug、报错、排障卡片
   04_设备与部署/        设备、部署、验收清单
+  raw/                  原始导入资料，本地留存
   graph/
-    index.html          图谱前端
+    index.html          知识图谱前端
     graph.json          自动生成的图谱数据
-    node_notes/         AI/人工解释缓存
+    node_notes/         AI/人工解释缓存，本地留存
   scripts/
-    kb_server.py        本地 HTTP 服务、AI 接口、节点创建接口
+    kb_server.py        本地 HTTP 服务、AI 接口、导入和节点创建接口
     rebuild_graph.py    Markdown -> graph.json 编译器
   .env.local            本地私密配置，不提交 Git
 ```
 
-## 当前代码主要用什么写的
+## 智能导入
 
-- 前端：原生 HTML + CSS + JavaScript + SVG。
-- 后端：Python 标准库 `http.server`，没有引入 Web 框架。
-- 图谱数据：`scripts/rebuild_graph.py` 扫描 Markdown，生成 `graph/graph.json`。
-- AI 调用：`scripts/kb_server.py` 通过 DeepSeek OpenAI-compatible Chat Completions 接口调用模型。
-- 存储：Markdown 文档 + `graph/node_notes/*.json` 缓存。
+点击顶部 `导入 Markdown`，默认使用 `智能知识导入`。
 
-## AI 生成一次：输入和输出
+导入流程：
 
-点击节点右侧的 `AI 生成一次` 时，前端会调用：
+1. 保存原始 Markdown 到 `raw/imports/`。
+2. 判断文档类型：项目、技术、问题、部署、工具/命令。
+3. 从代码块中提取常用命令。
+4. 匹配已有节点和主题关键词。
+5. 生成候选关系和 Hub 建议。
+6. 写入对应 Wiki 目录，并重建图谱。
+
+智能导入不会直接替你确认所有关系，它更像“候选整理器”。最终内容仍然可以人工审查、编辑和合并。
+
+## 图谱交互
+
+- 单击节点：打开右侧知识卡片。
+- 双击节点：同样打开/聚焦知识卡片。
+- 点击空白画布：取消当前节点选择。
+- 拖动画布：移动整个视图。
+- 滚轮：缩放图谱。
+- 拖动单个节点：临时调整展示位置。
+- 选中项目节点后，在空白画布左键拖动：框选一组相关节点。
+- 框选后拖动组内任意节点：整组节点一起移动，方便把一个项目簇拉开展示。
+- 选中项目节点后如需拖动画布，可按住 `Shift` 或 `Alt` 再拖动空白区域。
+
+当前节点位置调整属于前端展示层，刷新后会按图谱布局重新计算。后续可以增加“保存布局”能力。
+
+## 文档视图
+
+点击顶部 `文档` 可以打开 Wiki 文档列表。文档内容通过 `/api/doc` 读取，并按 Markdown 样式渲染标题、列表、代码块、引用和链接。
+
+如果文档存在历史编码问题，页面会提示可能需要重新导入干净的 UTF-8 Markdown。
+
+## AI 解释缓存
+
+点击节点卡片里的 `AI 生成一次` 时，前端会调用：
 
 ```text
 POST /api/node-explain
 ```
 
-### 输入给后端
-
-```json
-{
-  "id": "topic-zlmediakit",
-  "force": false
-}
-```
-
-### 后端整理后输入给 DeepSeek
-
-后端会把三类上下文组织成 prompt：
-
-1. 当前节点
-
-```json
-{
-  "id": "topic-zlmediakit",
-  "label": "ZLMediaKit",
-  "type": "service",
-  "summary": "流媒体服务..."
-}
-```
-
-2. 关联节点
-
-```json
-[
-  { "label": "C++ 调用 FFmpeg 库", "type": "concept", "relation": "提到" },
-  { "label": "Mino17 RK3588 红外采集推流复盘", "type": "project", "relation": "提到" }
-]
-```
-
-3. 对应 Markdown 文档片段
+后端会把当前节点、关联节点、对应 Markdown 片段组装为 prompt，调用 DeepSeek，并把结果写入：
 
 ```text
-# ZLMediaKit 流媒体分发
-C++ 程序只负责把 H264 RTMP 流推到 ZLMediaKit...
+graph/node_notes/
 ```
 
-### DeepSeek 输出
+同一个节点后续优先读取缓存，不会重复调用 AI。只有点击 `重新生成` 才会覆盖旧缓存。
 
-DeepSeek 输出 Markdown，例如：
+## DeepSeek 配置
 
-```md
-### 是什么
-ZLMediaKit 是一个轻量、高性能的流媒体服务器，支持 **RTMP、HTTP-FLV、HLS、RTSP** 等协议分发。
-
-### 项目中怎么用
-- **推流方**：C++ 程序通过 FFmpeg API 硬件编码后推送 RTMP。
-- **播放方**：用 `ffplay`、VLC 或 Web 拉流。
-
-### 关键点
-端口映射和 `secret` 必须一致，否则 ZLM API 可能查不到流。
-```
-
-前端会把 Markdown 渲染为标题、加粗、行内代码和短列表。
-
-## 不同节点类型的 AI prompt 策略
-
-| 节点类型 | 生成重点 |
-|---|---|
-| project | 项目定位、整体架构、核心流程、跑通结果、关键结论 |
-| concept/library/service/device/tool/deployment | 是什么、项目中怎么用、关键点、命令或代码名示例 |
-| issue | 现象、原因、解决方式、验证效果 |
-
-项目节点右侧会额外展示固定架构图：
-
-```text
-采集 -> 处理 -> 编码 -> 推流 -> 分发 -> 播放
-```
-
-## 缓存策略
-
-第一次生成：
-
-```text
-点击节点 -> /api/node-explain -> 检查 node_notes -> 调用 DeepSeek -> 写入 graph/node_notes -> 前端展示
-```
-
-第二次点击同一节点：
-
-```text
-直接读取 graph/node_notes，不重复调用 AI
-```
-
-如果想用新 prompt 覆盖旧缓存，点击 `重新生成`。
-
-## 新增节点
-
-点击顶部 `新增节点`，填写标题、类型、摘要、标签、关联文档和正文。提交后会：
-
-1. 在对应目录创建 Markdown 文档。
-2. 自动重建 `graph/graph.json`。
-3. 刷新图谱，新节点进入图谱和文档视图。
-
-类型和目录映射：
-
-| 类型 | 目录 |
-|---|---|
-| project | `01_项目复盘` |
-| concept/library/service/device/tool/acceleration | `02_技术地图` |
-| issue | `03_问题库` |
-| deployment | `04_设备与部署` |
-
-## 文档视图
-
-点击顶部 `文档`，会打开 Wiki 文档列表。文档仍然是知识库主体，图谱只是另一种结构化展示。
-
-## 安全说明
-
-`.env.local` 存放 DeepSeek API Key，不应该提交到 GitHub。
-
-示例：
+在 `.env.local` 中配置：
 
 ```env
-DEEPSEEK_API_KEY=你的key
+DEEPSEEK_API_KEY=你的 key
 DEEPSEEK_MODEL=deepseek-v4-flash
 DEEPSEEK_API_BASE=https://api.deepseek.com/chat/completions
 ```
 
-仓库会通过 `.gitignore` 忽略 `.env.local`、缓存和临时文件。
+`.env.local` 不应提交到 GitHub。
+
+## 开发说明
+
+- 前端：原生 HTML + CSS + JavaScript + SVG。
+- 后端：Python 标准库 `http.server`，没有引入 Web 框架。
+- 图谱构建：`scripts/rebuild_graph.py` 扫描 Markdown 并生成 `graph/graph.json`。
+- 本地服务：`scripts/kb_server.py` 提供文档读取、节点创建、智能导入和 AI 调用接口。
+
+## 提交策略
+
+建议提交：
+
+- `graph/index.html`
+- `scripts/kb_server.py`
+- `scripts/rebuild_graph.py`
+- `README.md`
+- `.gitignore`
+- 已确认可公开的 Wiki Markdown
+
+默认不提交：
+
+- `.env.local`
+- `raw/imports/`
+- `graph/node_notes/`
+- 临时测试文件
