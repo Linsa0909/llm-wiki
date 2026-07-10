@@ -1,0 +1,31 @@
+---
+title: Linux 系统与设备
+type: concept
+summary: 智能导入建议的主题 Hub，用于聚合相关技术和文档。
+tags:
+  - 导入
+  - 智能导入
+  - linux
+  - device
+links:
+  - Mino17 红外相机 RK3588 C++ 采集推流方案汇报
+  - Docker
+  - Docker buildx
+  - Linux Shell
+  - FFmpeg
+  - ZLMediaKit
+  - RK3588
+sources:
+  - raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md
+---
+# Linux 系统与设备
+
+## 导入来源：智能导入
+
+## 候选 Hub
+
+该 Hub 由文档 [[Mino17 红外相机 RK3588 C++ 采集推流方案汇报]] 触发，用于聚合相关技术、命令和部署记录。
+
+## 审查状态
+
+- status: suggested

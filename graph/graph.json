@@ -5,62 +5,611 @@
       "label": "Mino17 RK3588 红外采集推流复盘",
       "type": "project",
       "doc": "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md",
+      "docs": [
+        "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md"
+      ],
+      "sources": [],
       "summary": "本项目已经把原先基于 `ffmpeg` 命令行的采集推流流程，改造成 **C++ 直接调用 FFmpeg/libav 库 API** 的方式，并在 RK3588 上通过 `h264_rkmpp` 完成 H264 硬件编码，再推流到 ZLMediaKit 分发。",
       "tags": []
+    },
+    {
+      "id": "02_技术地图-1.dds通信",
+      "label": "1.DDS通信",
+      "type": "concept",
+      "doc": "../02_技术地图/1.DDS通信.md",
+      "docs": [
+        "../02_技术地图/1.DDS通信.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-155645/1.DDS通信.md"
+      ],
+      "summary": "1.DDS通信",
+      "tags": [
+        "导入"
+      ]
     },
     {
       "id": "02_技术地图-c++调用ffmpeg库",
       "label": "C++ 调用 FFmpeg 库",
       "type": "concept",
       "doc": "../02_技术地图/C++调用FFmpeg库.md",
+      "docs": [
+        "../02_技术地图/C++调用FFmpeg库.md"
+      ],
+      "sources": [],
       "summary": "`ffmpeg` 既可以是命令行工具，也可以是一组可被 C/C++ 调用的库。本项目不是执行 `ffmpeg` 命令，而是在 C++ 中链接并调用 FFmpeg/libav 库。",
       "tags": []
+    },
+    {
+      "id": "02_技术地图-docker-buildx-跨架构编译-x86-arm-实战指南",
+      "label": "🐳 Docker Buildx 跨架构编译 (x86 -> ARM) 实战指南",
+      "type": "concept",
+      "doc": "../02_技术地图/Docker-Buildx-跨架构编译-x86---ARM-实战指南.md",
+      "docs": [
+        "../02_技术地图/Docker-Buildx-跨架构编译-x86---ARM-实战指南.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-171413/Docker-Buildx-跨架构编译-x86---ARM-实战指南.md"
+      ],
+      "summary": "默认情况下，在 x86_64 服务器上 `docker build` 出来的镜像只能在 x86 机器上运行。如果强行拿到 ARM 架构（如树莓派、鲲鹏、飞腾服务器）上运行，会直接报 `Exec format error`（二进制执行格式错误）。",
+      "tags": [
+        "导入"
+      ]
+    },
+    {
+      "id": "02_技术地图-docker-buildx",
+      "label": "Docker buildx",
+      "type": "tool",
+      "doc": "../02_技术地图/Docker-buildx.md",
+      "docs": [
+        "../02_技术地图/Docker-buildx.md"
+      ],
+      "sources": [
+        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md"
+      ],
+      "summary": "智能导入从 Mino17 红外相机 RK3588 C++ 采集推流方案汇报 中识别到的 Docker buildx 相关知识点。",
+      "tags": [
+        "导入",
+        "智能导入",
+        "docker",
+        "buildx",
+        "multi-arch"
+      ]
+    },
+    {
+      "id": "02_技术地图-docker",
+      "label": "Docker",
+      "type": "tool",
+      "doc": "../02_技术地图/Docker.md",
+      "docs": [
+        "../02_技术地图/Docker.md"
+      ],
+      "sources": [
+        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md"
+      ],
+      "summary": "智能导入从 Mino17 红外相机 RK3588 C++ 采集推流方案汇报 中识别到的 Docker 相关知识点。",
+      "tags": [
+        "导入",
+        "智能导入",
+        "docker",
+        "container"
+      ]
+    },
+    {
+      "id": "02_技术地图-docker相关",
+      "label": "docker相关",
+      "type": "concept",
+      "doc": "../02_技术地图/docker相关.md",
+      "docs": [
+        "../02_技术地图/docker相关.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-171413/poc项目学习.md"
+      ],
+      "summary": "**1. 打包镜像 (Build)**",
+      "tags": [
+        "导入"
+      ]
     },
     {
       "id": "02_技术地图-docker离线部署",
       "label": "Docker 离线部署",
       "type": "concept",
       "doc": "../02_技术地图/Docker离线部署.md",
+      "docs": [
+        "../02_技术地图/Docker离线部署.md"
+      ],
+      "sources": [],
       "summary": "生成：",
       "tags": []
+    },
+    {
+      "id": "02_技术地图-ffmpeg",
+      "label": "FFmpeg",
+      "type": "tool",
+      "doc": "../02_技术地图/FFmpeg.md",
+      "docs": [
+        "../02_技术地图/FFmpeg.md"
+      ],
+      "sources": [
+        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md"
+      ],
+      "summary": "智能导入从 Mino17 红外相机 RK3588 C++ 采集推流方案汇报 中识别到的 FFmpeg 相关知识点。",
+      "tags": [
+        "导入",
+        "智能导入",
+        "ffmpeg",
+        "video"
+      ]
+    },
+    {
+      "id": "02_技术地图-jmter",
+      "label": "Jmter",
+      "type": "concept",
+      "doc": "../02_技术地图/Jmter.md",
+      "docs": [
+        "../02_技术地图/Jmter.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-171413/Jmter.md"
+      ],
+      "summary": "JMeter：报错（Content type 'text/plain;charset=UTF-8' not supported\"）",
+      "tags": [
+        "导入"
+      ]
+    },
+    {
+      "id": "02_技术地图-linux-shell",
+      "label": "Linux Shell",
+      "type": "tool",
+      "doc": "../02_技术地图/Linux-Shell.md",
+      "docs": [
+        "../02_技术地图/Linux-Shell.md"
+      ],
+      "sources": [
+        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md"
+      ],
+      "summary": "智能导入从 Mino17 红外相机 RK3588 C++ 采集推流方案汇报 中识别到的 Linux Shell 相关知识点。",
+      "tags": [
+        "导入",
+        "智能导入",
+        "linux",
+        "shell"
+      ]
+    },
+    {
+      "id": "02_技术地图-linux-系统与设备",
+      "label": "Linux 系统与设备",
+      "type": "concept",
+      "doc": "../02_技术地图/Linux-系统与设备.md",
+      "docs": [
+        "../02_技术地图/Linux-系统与设备.md"
+      ],
+      "sources": [
+        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md"
+      ],
+      "summary": "智能导入建议的主题 Hub，用于聚合相关技术和文档。",
+      "tags": [
+        "导入",
+        "智能导入",
+        "linux",
+        "device"
+      ]
+    },
+    {
+      "id": "02_技术地图-linux-设备文件与-udev-详解",
+      "label": "Linux 设备文件与 udev 详解",
+      "type": "concept",
+      "doc": "../02_技术地图/Linux-设备文件与-udev-详解.md",
+      "docs": [
+        "../02_技术地图/Linux-设备文件与-udev-详解.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-155519/Linux设备文件与udev详解.md"
+      ],
+      "summary": "Linux 将所有 I/O 设备抽象为文件，统一通过 `open()/read()/write()/ioctl()/close()` 访问。",
+      "tags": [
+        "导入"
+      ]
     },
     {
       "id": "02_技术地图-linux设备文件与v4l2",
       "label": "Linux 设备文件与 V4L2",
       "type": "concept",
       "doc": "../02_技术地图/Linux设备文件与V4L2.md",
+      "docs": [
+        "../02_技术地图/Linux设备文件与V4L2.md"
+      ],
+      "sources": [],
       "summary": "Linux 下摄像头会被识别成 `/dev/videoX` 这类设备文件。程序不是“找到摄像头名字”就能工作，而是要打开正确的设备节点。",
       "tags": []
+    },
+    {
+      "id": "02_技术地图-mino17-红外相机-rk3588-c-采集推流方案汇报-命令片段",
+      "label": "Mino17 红外相机 RK3588 C++ 采集推流方案汇报 命令片段",
+      "type": "tool",
+      "doc": "../02_技术地图/Mino17-红外相机-RK3588-C-采集推流方案汇报-命令片段.md",
+      "docs": [
+        "../02_技术地图/Mino17-红外相机-RK3588-C-采集推流方案汇报-命令片段.md"
+      ],
+      "sources": [
+        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md"
+      ],
+      "summary": "智能导入从 Markdown 代码块中提取的命令节点。",
+      "tags": [
+        "导入",
+        "智能导入",
+        "commands"
+      ]
+    },
+    {
+      "id": "02_技术地图-rk3588",
+      "label": "RK3588",
+      "type": "device",
+      "doc": "../02_技术地图/RK3588.md",
+      "docs": [
+        "../02_技术地图/RK3588.md"
+      ],
+      "sources": [
+        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md"
+      ],
+      "summary": "智能导入从 Mino17 红外相机 RK3588 C++ 采集推流方案汇报 中识别到的 RK3588 相关知识点。",
+      "tags": [
+        "导入",
+        "智能导入",
+        "rk3588",
+        "arm64"
+      ]
     },
     {
       "id": "02_技术地图-rk3588硬件编码rkmpp",
       "label": "RK3588 硬件编码 rkmpp",
       "type": "concept",
       "doc": "../02_技术地图/RK3588硬件编码rkmpp.md",
+      "docs": [
+        "../02_技术地图/RK3588硬件编码rkmpp.md"
+      ],
+      "sources": [],
       "summary": "`rkmpp` 是 Rockchip MPP 的 FFmpeg 编码/解码接口。在 RK3588 上，使用 `h264_rkmpp` 可以把 H264 编码放到硬件单元执行，降低 CPU 压力。",
       "tags": []
+    },
+    {
+      "id": "02_技术地图-zlmediakit",
+      "label": "ZLMediaKit",
+      "type": "service",
+      "doc": "../02_技术地图/ZLMediaKit.md",
+      "docs": [
+        "../02_技术地图/ZLMediaKit.md"
+      ],
+      "sources": [
+        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md"
+      ],
+      "summary": "智能导入从 Mino17 红外相机 RK3588 C++ 采集推流方案汇报 中识别到的 ZLMediaKit 相关知识点。",
+      "tags": [
+        "导入",
+        "智能导入",
+        "streaming",
+        "zlm"
+      ]
     },
     {
       "id": "02_技术地图-zlmediakit流媒体分发",
       "label": "ZLMediaKit 流媒体分发",
       "type": "concept",
       "doc": "../02_技术地图/ZLMediaKit流媒体分发.md",
+      "docs": [
+        "../02_技术地图/ZLMediaKit流媒体分发.md"
+      ],
+      "sources": [],
       "summary": "C++ 程序只负责把 H264 RTMP 流推到 ZLMediaKit。ZLMediaKit 负责把同一路流转成多种播放协议。",
       "tags": []
+    },
+    {
+      "id": "02_技术地图-一-关于-socket-的介绍",
+      "label": "一、关于 socket 的介绍",
+      "type": "concept",
+      "doc": "../02_技术地图/一-关于-socket-的介绍.md",
+      "docs": [
+        "../02_技术地图/一-关于-socket-的介绍.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-171413/Socket-套接字.md"
+      ],
+      "summary": "​\tSocket 又称 \"套接字\"，应用程序通常通过 \"套接字\" 向网络发出请求或者应答网络请求，使主机间或者一台计算机上的进程间可以通讯。python中提供了两个基本的 Socket 模块：服务端 Socket 和客户端 Socket，当创建了一个服务端 Socket 后，这个 Socket 就会在本机的一个端口上等",
+      "tags": [
+        "导入"
+      ]
+    },
+    {
+      "id": "02_技术地图-一-核心概念",
+      "label": "一、核心概念",
+      "type": "concept",
+      "doc": "../02_技术地图/一-核心概念.md",
+      "docs": [
+        "../02_技术地图/一-核心概念.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-163558/二进制协议解析指南.md"
+      ],
+      "summary": "",
+      "tags": [
+        "导入"
+      ]
+    },
+    {
+      "id": "02_技术地图-七-调试技巧清单",
+      "label": "七、调试技巧清单",
+      "type": "concept",
+      "doc": "../02_技术地图/七-调试技巧清单.md",
+      "docs": [
+        "../02_技术地图/七-调试技巧清单.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-163558/二进制协议解析指南.md"
+      ],
+      "summary": "",
+      "tags": [
+        "导入"
+      ]
+    },
+    {
+      "id": "02_技术地图-三-帧同步状态机-解决粘包-拆包",
+      "label": "三、帧同步状态机（解决粘包/拆包）",
+      "type": "concept",
+      "doc": "../02_技术地图/三-帧同步状态机-解决粘包-拆包.md",
+      "docs": [
+        "../02_技术地图/三-帧同步状态机-解决粘包-拆包.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-163558/二进制协议解析指南.md"
+      ],
+      "summary": "",
+      "tags": [
+        "导入"
+      ]
+    },
+    {
+      "id": "02_技术地图-九-最小可行验证-马上就能做",
+      "label": "九、最小可行验证（马上就能做）",
+      "type": "concept",
+      "doc": "../02_技术地图/九-最小可行验证-马上就能做.md",
+      "docs": [
+        "../02_技术地图/九-最小可行验证-马上就能做.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-163558/二进制协议解析指南.md"
+      ],
+      "summary": "不需要开发板也能训练协议解析：",
+      "tags": [
+        "导入"
+      ]
+    },
+    {
+      "id": "02_技术地图-二-python-struct-完全指南",
+      "label": "二、Python struct 完全指南",
+      "type": "concept",
+      "doc": "../02_技术地图/二-Python-struct-完全指南.md",
+      "docs": [
+        "../02_技术地图/二-Python-struct-完全指南.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-163558/二进制协议解析指南.md"
+      ],
+      "summary": "",
+      "tags": [
+        "导入"
+      ]
+    },
+    {
+      "id": "02_技术地图-五-校验算法合集",
+      "label": "五、校验算法合集",
+      "type": "concept",
+      "doc": "../02_技术地图/五-校验算法合集.md",
+      "docs": [
+        "../02_技术地图/五-校验算法合集.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-163558/二进制协议解析指南.md"
+      ],
+      "summary": "",
+      "tags": [
+        "导入"
+      ]
+    },
+    {
+      "id": "02_技术地图-八-推荐工具链",
+      "label": "八、推荐工具链",
+      "type": "concept",
+      "doc": "../02_技术地图/八-推荐工具链.md",
+      "docs": [
+        "../02_技术地图/八-推荐工具链.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-163558/二进制协议解析指南.md"
+      ],
+      "summary": "",
+      "tags": [
+        "导入"
+      ]
+    },
+    {
+      "id": "02_技术地图-六-esp32-端代码示例-配套",
+      "label": "六、ESP32 端代码示例（配套）",
+      "type": "concept",
+      "doc": "../02_技术地图/六-ESP32-端代码示例-配套.md",
+      "docs": [
+        "../02_技术地图/六-ESP32-端代码示例-配套.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-163558/二进制协议解析指南.md"
+      ],
+      "summary": "",
+      "tags": [
+        "导入"
+      ]
+    },
+    {
+      "id": "02_技术地图-四-wireshark-抓包分析流程",
+      "label": "四、Wireshark 抓包分析流程",
+      "type": "concept",
+      "doc": "../02_技术地图/四-Wireshark-抓包分析流程.md",
+      "docs": [
+        "../02_技术地图/四-Wireshark-抓包分析流程.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-163558/二进制协议解析指南.md"
+      ],
+      "summary": "",
+      "tags": [
+        "导入"
+      ]
+    },
+    {
+      "id": "02_技术地图-容器镜像构建",
+      "label": "容器镜像构建",
+      "type": "concept",
+      "doc": "../02_技术地图/容器镜像构建.md",
+      "docs": [
+        "../02_技术地图/容器镜像构建.md"
+      ],
+      "sources": [
+        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md"
+      ],
+      "summary": "智能导入建议的主题 Hub，用于聚合相关技术和文档。",
+      "tags": [
+        "导入",
+        "智能导入",
+        "docker",
+        "buildx",
+        "image",
+        "arm64"
+      ]
+    },
+    {
+      "id": "02_技术地图-框架压测学习",
+      "label": "框架压测学习",
+      "type": "concept",
+      "doc": "../02_技术地图/框架压测学习.md",
+      "docs": [
+        "../02_技术地图/框架压测学习.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-171413/框架压测学习.md"
+      ],
+      "summary": "正则表达式（Regular expressions，也叫 REs、regexs 或 regex patterns）",
+      "tags": [
+        "导入"
+      ]
+    },
+    {
+      "id": "02_技术地图-框架更新环境",
+      "label": "框架更新环境-",
+      "type": "concept",
+      "doc": "../02_技术地图/框架更新环境.md",
+      "docs": [
+        "../02_技术地图/框架更新环境.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-171413/框架更新环境-.md"
+      ],
+      "summary": "框架更新环境：",
+      "tags": [
+        "导入"
+      ]
+    },
+    {
+      "id": "02_技术地图-视频采集与推流",
+      "label": "视频采集与推流",
+      "type": "concept",
+      "doc": "../02_技术地图/视频采集与推流.md",
+      "docs": [
+        "../02_技术地图/视频采集与推流.md"
+      ],
+      "sources": [
+        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md"
+      ],
+      "summary": "智能导入建议的主题 Hub，用于聚合相关技术和文档。",
+      "tags": [
+        "导入",
+        "智能导入",
+        "video",
+        "streaming"
+      ]
+    },
+    {
+      "id": "02_技术地图-部署与运维",
+      "label": "部署与运维",
+      "type": "concept",
+      "doc": "../02_技术地图/部署与运维.md",
+      "docs": [
+        "../02_技术地图/部署与运维.md"
+      ],
+      "sources": [
+        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md"
+      ],
+      "summary": "智能导入建议的主题 Hub，用于聚合相关技术和文档。",
+      "tags": [
+        "导入",
+        "智能导入",
+        "deployment",
+        "ops"
+      ]
+    },
+    {
+      "id": "02_技术地图-默认注释了源码镜像以提高-apt-update-速度-如有需要可自行取消注释",
+      "label": "默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释",
+      "type": "concept",
+      "doc": "../02_技术地图/默认注释了源码镜像以提高-apt-update-速度-如有需要可自行取消注释.md",
+      "docs": [
+        "../02_技术地图/默认注释了源码镜像以提高-apt-update-速度-如有需要可自行取消注释.md"
+      ],
+      "sources": [
+        "raw/imports/20260709-171413/WSL2安装.md"
+      ],
+      "summary": "安装完成之后该终端会自动进入到linux子系统",
+      "tags": [
+        "导入"
+      ]
     },
     {
       "id": "03_问题库-ffmpeg开发库与运行库缺失",
       "label": "FFmpeg 开发库与运行库缺失",
       "type": "issue",
       "doc": "../03_问题库/ffmpeg开发库与运行库缺失.md",
+      "docs": [
+        "../03_问题库/ffmpeg开发库与运行库缺失.md"
+      ],
+      "sources": [],
       "summary": "",
       "tags": []
+    },
+    {
+      "id": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "Mino17 红外相机 RK3588 C++ 采集推流方案汇报",
+      "type": "issue",
+      "doc": "../03_问题库/Mino17-红外相机-RK3588-C-采集推流方案汇报.md",
+      "docs": [
+        "../03_问题库/Mino17-红外相机-RK3588-C-采集推流方案汇报.md"
+      ],
+      "sources": [
+        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md"
+      ],
+      "summary": "智能导入识别的问题、报错或排障节点。",
+      "tags": [
+        "导入",
+        "智能导入",
+        "issue"
+      ]
     },
     {
       "id": "03_问题库-zlm端口和secret不一致",
       "label": "ZLM 端口和 secret 不一致",
       "type": "issue",
       "doc": "../03_问题库/ZLM端口和secret不一致.md",
+      "docs": [
+        "../03_问题库/ZLM端口和secret不一致.md"
+      ],
+      "sources": [],
       "summary": "或 API 返回鉴权失败。",
       "tags": []
     },
@@ -69,6 +618,10 @@
       "label": "脚本 CRLF/BOM 导致 Linux 执行失败",
       "type": "issue",
       "doc": "../03_问题库/脚本CRLF和BOM导致Linux执行失败.md",
+      "docs": [
+        "../03_问题库/脚本CRLF和BOM导致Linux执行失败.md"
+      ],
+      "sources": [],
       "summary": "Windows 写出的 shell 脚本可能带 BOM 或 CRLF。Linux 执行 shebang 时会把不可见字符也当作路径的一部分。",
       "tags": []
     },
@@ -77,6 +630,10 @@
       "label": "Mino17 部署验收清单",
       "type": "deployment",
       "doc": "../04_设备与部署/Mino17部署验收清单.md",
+      "docs": [
+        "../04_设备与部署/Mino17部署验收清单.md"
+      ],
+      "sources": [],
       "summary": "预期：",
       "tags": []
     },
@@ -85,6 +642,10 @@
       "label": "libavdevice",
       "type": "library",
       "doc": "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md",
+      "docs": [
+        "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md"
+      ],
+      "sources": [],
       "summary": "FFmpeg 设备输入输出库。本项目用它注册并打开 v4l2 摄像头设备，例如 /dev/video59。",
       "tags": [
         "FFmpeg",
@@ -97,6 +658,10 @@
       "label": "libavformat",
       "type": "library",
       "doc": "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md",
+      "docs": [
+        "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md"
+      ],
+      "sources": [],
       "summary": "FFmpeg 封装与协议库。本项目用它打开输入流、创建 FLV/RTMP 输出并写入推流包。",
       "tags": [
         "FFmpeg",
@@ -109,6 +674,10 @@
       "label": "libavcodec",
       "type": "library",
       "doc": "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md",
+      "docs": [
+        "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md"
+      ],
+      "sources": [],
       "summary": "FFmpeg 编解码库。本项目用它调用 h264_rkmpp，在 RK3588 上完成 H264 硬件编码。",
       "tags": [
         "FFmpeg",
@@ -121,6 +690,10 @@
       "label": "libswscale",
       "type": "library",
       "doc": "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md",
+      "docs": [
+        "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md"
+      ],
+      "sources": [],
       "summary": "FFmpeg 图像缩放与像素格式转换库。本项目的 CPU 图像路径会用到格式转换能力。",
       "tags": [
         "FFmpeg",
@@ -132,6 +705,10 @@
       "label": "h264_rkmpp",
       "type": "acceleration",
       "doc": "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md",
+      "docs": [
+        "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md"
+      ],
+      "sources": [],
       "summary": "Rockchip MPP 暴露给 FFmpeg 的 H264 硬件编码器，本项目的硬件加速核心。",
       "tags": [
         "RK3588",
@@ -143,6 +720,10 @@
       "label": "ZLMediaKit",
       "type": "service",
       "doc": "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md",
+      "docs": [
+        "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md"
+      ],
+      "sources": [],
       "summary": "流媒体服务。接收 C++ 程序推送的 RTMP 流，再分发为 RTMP、HTTP-FLV、HLS、RTSP 等播放地址。",
       "tags": [
         "流媒体",
@@ -155,6 +736,10 @@
       "label": "V4L2",
       "type": "device",
       "doc": "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md",
+      "docs": [
+        "../01_项目复盘/2026-07-08_Mino17_RK3588红外采集推流.md"
+      ],
+      "sources": [],
       "summary": "Linux 视频采集接口。本项目通过它访问 Mino17 摄像头暴露出的 /dev/videoX 设备文件。",
       "tags": [
         "Linux",
@@ -167,6 +752,10 @@
       "label": "libavutil",
       "type": "library",
       "doc": "../02_技术地图/C++调用FFmpeg库.md",
+      "docs": [
+        "../02_技术地图/C++调用FFmpeg库.md"
+      ],
+      "sources": [],
       "summary": "FFmpeg 基础工具库，提供帧、包、时间基、错误处理和硬件上下文等基础能力。",
       "tags": [
         "FFmpeg",
@@ -178,162 +767,1372 @@
     {
       "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
       "target": "02_技术地图-c++调用ffmpeg库",
-      "label": "引用"
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link"
     },
     {
       "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
       "target": "02_技术地图-rk3588硬件编码rkmpp",
-      "label": "引用"
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link"
     },
     {
       "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
       "target": "02_技术地图-linux设备文件与v4l2",
-      "label": "引用"
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link"
     },
     {
       "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
       "target": "02_技术地图-zlmediakit流媒体分发",
-      "label": "引用"
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link"
     },
     {
       "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
       "target": "04_设备与部署-mino17部署验收清单",
-      "label": "引用"
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link"
     },
     {
       "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
       "target": "topic-libavdevice",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.68,
+      "reason": "repeated mention x3"
     },
     {
       "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
       "target": "topic-libavformat",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
       "target": "topic-libavcodec",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
       "target": "topic-libswscale",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
       "target": "topic-h264_rkmpp",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.68,
+      "reason": "repeated mention x5"
     },
     {
       "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
       "target": "topic-zlmediakit",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.68,
+      "reason": "repeated mention x5"
     },
     {
       "source": "01_项目复盘-2026-07-08_mino17_rk3588红外采集推流",
       "target": "topic-v4l2",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.68,
+      "reason": "repeated mention x9; hidden by degree cap",
+      "visible": false
     },
     {
       "source": "02_技术地图-c++调用ffmpeg库",
       "target": "topic-libavdevice",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "02_技术地图-c++调用ffmpeg库",
       "target": "topic-libavformat",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "02_技术地图-c++调用ffmpeg库",
       "target": "topic-libavcodec",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "02_技术地图-c++调用ffmpeg库",
       "target": "topic-libavutil",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "02_技术地图-c++调用ffmpeg库",
       "target": "topic-libswscale",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "02_技术地图-c++调用ffmpeg库",
       "target": "topic-h264_rkmpp",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "02_技术地图-c++调用ffmpeg库",
       "target": "topic-v4l2",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-docker-buildx",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-docker-buildx",
+      "target": "02_技术地图-容器镜像构建",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-docker-buildx",
+      "target": "02_技术地图-部署与运维",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-docker-buildx",
+      "target": "02_技术地图-linux-系统与设备",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-docker-buildx",
+      "target": "02_技术地图-视频采集与推流",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-docker-buildx",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-docker-buildx",
+      "target": "topic-libavdevice",
+      "label": "提到",
+      "strength": 0.68,
+      "reason": "repeated mention x3"
+    },
+    {
+      "source": "02_技术地图-docker-buildx",
+      "target": "topic-libavformat",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-docker-buildx",
+      "target": "topic-libavcodec",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-docker-buildx",
+      "target": "topic-libswscale",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-docker-buildx",
+      "target": "topic-h264_rkmpp",
+      "label": "提到",
+      "strength": 0.68,
+      "reason": "repeated mention x7"
+    },
+    {
+      "source": "02_技术地图-docker-buildx",
+      "target": "topic-zlmediakit",
+      "label": "提到",
+      "strength": 0.68,
+      "reason": "repeated mention x4; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-docker-buildx",
+      "target": "topic-v4l2",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-docker",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-docker",
+      "target": "02_技术地图-容器镜像构建",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-docker",
+      "target": "02_技术地图-部署与运维",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-docker",
+      "target": "02_技术地图-linux-系统与设备",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-docker",
+      "target": "02_技术地图-视频采集与推流",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-docker",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-docker",
+      "target": "topic-libavdevice",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-docker",
+      "target": "topic-libavformat",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-docker",
+      "target": "topic-libavcodec",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-docker",
+      "target": "topic-libswscale",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-docker",
+      "target": "topic-h264_rkmpp",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-docker",
+      "target": "topic-zlmediakit",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-docker",
+      "target": "topic-v4l2",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "02_技术地图-docker离线部署",
       "target": "topic-zlmediakit",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-ffmpeg",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-ffmpeg",
+      "target": "02_技术地图-容器镜像构建",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-ffmpeg",
+      "target": "02_技术地图-部署与运维",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-ffmpeg",
+      "target": "02_技术地图-linux-系统与设备",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-ffmpeg",
+      "target": "02_技术地图-视频采集与推流",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-ffmpeg",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-ffmpeg",
+      "target": "topic-libavdevice",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-ffmpeg",
+      "target": "topic-libavformat",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-ffmpeg",
+      "target": "topic-libavcodec",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-ffmpeg",
+      "target": "topic-libswscale",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-ffmpeg",
+      "target": "topic-h264_rkmpp",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-ffmpeg",
+      "target": "topic-zlmediakit",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-ffmpeg",
+      "target": "topic-v4l2",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-linux-shell",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-linux-shell",
+      "target": "02_技术地图-容器镜像构建",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-linux-shell",
+      "target": "02_技术地图-部署与运维",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-linux-shell",
+      "target": "02_技术地图-linux-系统与设备",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-linux-shell",
+      "target": "02_技术地图-视频采集与推流",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-linux-shell",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-linux-shell",
+      "target": "topic-libavdevice",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-linux-shell",
+      "target": "topic-libavformat",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-linux-shell",
+      "target": "topic-libavcodec",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-linux-shell",
+      "target": "topic-libswscale",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-linux-shell",
+      "target": "topic-h264_rkmpp",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-linux-shell",
+      "target": "topic-zlmediakit",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-linux-shell",
+      "target": "topic-v4l2",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-linux-系统与设备",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-linux-系统与设备",
+      "target": "02_技术地图-docker",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-linux-系统与设备",
+      "target": "02_技术地图-docker-buildx",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-linux-系统与设备",
+      "target": "02_技术地图-linux-shell",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-linux-系统与设备",
+      "target": "02_技术地图-ffmpeg",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-linux-系统与设备",
+      "target": "02_技术地图-zlmediakit",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-linux-系统与设备",
+      "target": "02_技术地图-rk3588",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-linux-系统与设备",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-linux-系统与设备",
+      "target": "topic-zlmediakit",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "02_技术地图-linux设备文件与v4l2",
       "target": "topic-v4l2",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.9,
+      "reason": "title match"
+    },
+    {
+      "source": "02_技术地图-mino17-红外相机-rk3588-c-采集推流方案汇报-命令片段",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-mino17-红外相机-rk3588-c-采集推流方案汇报-命令片段",
+      "target": "02_技术地图-docker",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-mino17-红外相机-rk3588-c-采集推流方案汇报-命令片段",
+      "target": "02_技术地图-docker-buildx",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-mino17-红外相机-rk3588-c-采集推流方案汇报-命令片段",
+      "target": "02_技术地图-linux-shell",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-mino17-红外相机-rk3588-c-采集推流方案汇报-命令片段",
+      "target": "02_技术地图-ffmpeg",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-mino17-红外相机-rk3588-c-采集推流方案汇报-命令片段",
+      "target": "02_技术地图-zlmediakit",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-mino17-红外相机-rk3588-c-采集推流方案汇报-命令片段",
+      "target": "02_技术地图-rk3588",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-mino17-红外相机-rk3588-c-采集推流方案汇报-命令片段",
+      "target": "02_技术地图-容器镜像构建",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-mino17-红外相机-rk3588-c-采集推流方案汇报-命令片段",
+      "target": "02_技术地图-部署与运维",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-mino17-红外相机-rk3588-c-采集推流方案汇报-命令片段",
+      "target": "02_技术地图-linux-系统与设备",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-mino17-红外相机-rk3588-c-采集推流方案汇报-命令片段",
+      "target": "02_技术地图-视频采集与推流",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-mino17-红外相机-rk3588-c-采集推流方案汇报-命令片段",
+      "target": "topic-h264_rkmpp",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-mino17-红外相机-rk3588-c-采集推流方案汇报-命令片段",
+      "target": "topic-zlmediakit",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-mino17-红外相机-rk3588-c-采集推流方案汇报-命令片段",
+      "target": "topic-v4l2",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-rk3588",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-rk3588",
+      "target": "02_技术地图-容器镜像构建",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-rk3588",
+      "target": "02_技术地图-部署与运维",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-rk3588",
+      "target": "02_技术地图-linux-系统与设备",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-rk3588",
+      "target": "02_技术地图-视频采集与推流",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-rk3588",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-rk3588",
+      "target": "topic-libavdevice",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-rk3588",
+      "target": "topic-libavformat",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-rk3588",
+      "target": "topic-libavcodec",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-rk3588",
+      "target": "topic-libswscale",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-rk3588",
+      "target": "topic-h264_rkmpp",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-rk3588",
+      "target": "topic-zlmediakit",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-rk3588",
+      "target": "topic-v4l2",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "02_技术地图-rk3588硬件编码rkmpp",
       "target": "topic-h264_rkmpp",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.68,
+      "reason": "repeated mention x3"
+    },
+    {
+      "source": "02_技术地图-zlmediakit",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-zlmediakit",
+      "target": "02_技术地图-容器镜像构建",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-zlmediakit",
+      "target": "02_技术地图-部署与运维",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-zlmediakit",
+      "target": "02_技术地图-linux-系统与设备",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-zlmediakit",
+      "target": "02_技术地图-视频采集与推流",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-zlmediakit",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-zlmediakit",
+      "target": "topic-libavdevice",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-zlmediakit",
+      "target": "topic-libavformat",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-zlmediakit",
+      "target": "topic-libavcodec",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-zlmediakit",
+      "target": "topic-libswscale",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-zlmediakit",
+      "target": "topic-h264_rkmpp",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-zlmediakit",
+      "target": "topic-zlmediakit",
+      "label": "提到",
+      "strength": 0.9,
+      "reason": "title match"
+    },
+    {
+      "source": "02_技术地图-zlmediakit",
+      "target": "topic-v4l2",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "02_技术地图-zlmediakit流媒体分发",
       "target": "topic-zlmediakit",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.9,
+      "reason": "title match"
+    },
+    {
+      "source": "02_技术地图-容器镜像构建",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-容器镜像构建",
+      "target": "02_技术地图-docker",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-容器镜像构建",
+      "target": "02_技术地图-docker-buildx",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-容器镜像构建",
+      "target": "02_技术地图-linux-shell",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-容器镜像构建",
+      "target": "02_技术地图-ffmpeg",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-容器镜像构建",
+      "target": "02_技术地图-zlmediakit",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-容器镜像构建",
+      "target": "02_技术地图-rk3588",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-容器镜像构建",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-容器镜像构建",
+      "target": "topic-zlmediakit",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-视频采集与推流",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-视频采集与推流",
+      "target": "02_技术地图-docker",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-视频采集与推流",
+      "target": "02_技术地图-docker-buildx",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-视频采集与推流",
+      "target": "02_技术地图-linux-shell",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-视频采集与推流",
+      "target": "02_技术地图-ffmpeg",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-视频采集与推流",
+      "target": "02_技术地图-zlmediakit",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-视频采集与推流",
+      "target": "02_技术地图-rk3588",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-视频采集与推流",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-视频采集与推流",
+      "target": "topic-zlmediakit",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-部署与运维",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-部署与运维",
+      "target": "02_技术地图-docker",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-部署与运维",
+      "target": "02_技术地图-docker-buildx",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-部署与运维",
+      "target": "02_技术地图-linux-shell",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-部署与运维",
+      "target": "02_技术地图-ffmpeg",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-部署与运维",
+      "target": "02_技术地图-zlmediakit",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-部署与运维",
+      "target": "02_技术地图-rk3588",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-部署与运维",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-部署与运维",
+      "target": "topic-zlmediakit",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "03_问题库-ffmpeg开发库与运行库缺失",
       "target": "topic-libavdevice",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "03_问题库-ffmpeg开发库与运行库缺失",
       "target": "topic-libavformat",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "03_问题库-ffmpeg开发库与运行库缺失",
       "target": "topic-libavcodec",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.68,
+      "reason": "repeated mention x3"
     },
     {
       "source": "03_问题库-ffmpeg开发库与运行库缺失",
       "target": "topic-libavutil",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "03_问题库-ffmpeg开发库与运行库缺失",
       "target": "topic-libswscale",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "03_问题库-ffmpeg开发库与运行库缺失",
       "target": "topic-v4l2",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "02_技术地图-docker",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "02_技术地图-docker-buildx",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "02_技术地图-linux-shell",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "02_技术地图-ffmpeg",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "02_技术地图-zlmediakit",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "02_技术地图-rk3588",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "02_技术地图-容器镜像构建",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "02_技术地图-部署与运维",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "02_技术地图-linux-系统与设备",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "02_技术地图-视频采集与推流",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "topic-libavdevice",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "topic-libavformat",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "topic-libavcodec",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "topic-libavutil",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "topic-libswscale",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "topic-h264_rkmpp",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "topic-zlmediakit",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "topic-v4l2",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "03_问题库-zlm端口和secret不一致",
       "target": "topic-zlmediakit",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "04_设备与部署-mino17部署验收清单",
       "target": "topic-h264_rkmpp",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     },
     {
       "source": "04_设备与部署-mino17部署验收清单",
       "target": "topic-v4l2",
-      "label": "提到"
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
     }
   ]
 }

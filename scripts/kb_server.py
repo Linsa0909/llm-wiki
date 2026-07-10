@@ -972,6 +972,80 @@ def read_doc_payload(doc_ref: str) -> dict:
     return {"ok": True, "title": title, "path": path.relative_to(ROOT).as_posix(), "content": text, "encoding_warning": warning or "?" in text}
 
 
+def build_doc_ai_append_prompt(title: str, rel_path: str, current_text: str, instruction: str, node: dict | None, neighbors: list[dict]) -> list[dict]:
+    excerpt = current_text[:9000]
+    context = {
+        "doc_title": title,
+        "doc_path": rel_path,
+        "node": node or {},
+        "neighbors": neighbors[:12],
+        "doc_excerpt": excerpt,
+        "user_instruction": instruction,
+    }
+    return [
+        {
+            "role": "system",
+            "content": (
+                "你是一个个人工程知识库维护助手。你的任务不是聊天答疑，而是根据用户输入和现有 Markdown 文档，生成一段可以直接追加写入该 Markdown 的知识增补。"
+                "必须输出 Markdown 正文片段，不要输出完整文档，不要输出 frontmatter，不要包裹 ```markdown。"
+                "如果用户指出当前文档内容跑题或太泛，请先用一小段说明纠偏，再补充真正应该沉淀的知识。"
+                "内容要偏工程实践，尽量包含：是什么、为什么在本项目里重要、常用命令/代码名、注意点。"
+                "不要编造没有依据的项目事实；可以基于用户输入做明确标注。"
+                "输出控制在 200 到 700 个中文字符之间。"
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                "请为下面这个知识库 Markdown 文档生成一段追加内容。\n\n"
+                "输出格式建议：\n"
+                "### 本次补充\n"
+                "- ...\n"
+                "### 关键点\n"
+                "- ...\n\n"
+                f"上下文 JSON：\n{json.dumps(context, ensure_ascii=False, indent=2)}"
+            ),
+        },
+    ]
+
+
+def append_doc_ai_update(payload: dict) -> dict:
+    doc_ref = str(payload.get("path") or payload.get("doc") or "").strip()
+    instruction = str(payload.get("instruction") or "").strip()
+    node_id = str(payload.get("node_id") or "").strip()
+    if not doc_ref:
+        raise ValueError("缺少文档路径。")
+    if len(instruction) < 4:
+        raise ValueError("请先输入你想补充或纠正的内容。")
+    path = resolve_doc_ref(doc_ref)
+    if not path:
+        raise FileNotFoundError("没有找到这个 Markdown 文档，或路径不在知识库目录内。")
+    current, warning = read_text_lossy(path)
+    if warning:
+        raise ValueError("该文档存在编码风险。请先重新导入干净的 UTF-8 Markdown，再使用 AI 写入。")
+    title = title_from_markdown(path.name, current)
+    rel = path.relative_to(ROOT).as_posix()
+    graph = load_graph()
+    node = find_node(graph, node_id) if node_id else None
+    neighbors = node_neighbors(graph, node_id) if node_id else []
+    addition = call_deepseek(build_doc_ai_append_prompt(title, rel, current, instruction, node, neighbors)).strip()
+    addition = re.sub(r"^```(?:markdown|md)?\s*", "", addition.strip(), flags=re.I)
+    addition = re.sub(r"\s*```$", "", addition.strip())
+    stamp = time.strftime("%Y-%m-%d %H:%M:%S")
+    safe_instruction = instruction.replace("\n", " ").strip()
+    if len(safe_instruction) > 160:
+        safe_instruction = safe_instruction[:157] + "..."
+    block = (
+        "\n\n"
+        f"## 知识增补：{stamp}\n\n"
+        f"> 输入：{safe_instruction}\n\n"
+        f"{addition}\n"
+    )
+    path.write_text(current.rstrip() + block, encoding="utf-8")
+    rebuild()
+    return {"ok": True, "path": rel, "title": title, "addition": addition, "updated_at": stamp}
+
+
 class KnowledgeHandler(http.server.SimpleHTTPRequestHandler):
     def guess_type(self, path: str) -> str:
         if path.lower().endswith(".md"):
@@ -1061,6 +1135,13 @@ class KnowledgeHandler(http.server.SimpleHTTPRequestHandler):
                 self._send_json(200, record)
             except Exception as exc:  # keep UI friendly; server is local and interactive
                 self._send_json(500, {"ok": False, "message": str(exc)})
+            return
+
+        if parsed.path == "/api/doc-ai-append":
+            try:
+                self._send_json(200, append_doc_ai_update(payload))
+            except Exception as exc:
+                self._send_json(400, {"ok": False, "message": str(exc)})
             return
 
         if parsed.path == "/api/import-md":

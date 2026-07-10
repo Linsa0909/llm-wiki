@@ -30,6 +30,11 @@ DERIVED_TOPICS = {
 }
 
 WIKI_RE = re.compile(r"\[\[([^\]|#]+)(?:#[^\]|]+)?(?:\|([^\]]+))?\]\]")
+LABEL_ASSOC = "\u5173\u8054"
+LABEL_REF = "\u5f15\u7528"
+LABEL_MENTION = "\u63d0\u5230"
+MAX_VISIBLE_DEGREE = 8
+
 FRONT_RE = re.compile(r"^---\n(.*?)\n---\n", re.S)
 
 
@@ -103,14 +108,87 @@ def normalize_target(raw: str, title_to_node: dict[str, str], path_to_node: dict
     return title_to_node.get(name) or title_to_node.get(raw)
 
 
-def add_link(links: list[dict], seen: set[tuple[str, str, str]], source: str, target: str | None, label: str) -> None:
+
+def label_rank(label: str) -> int:
+    return {LABEL_ASSOC: 3, LABEL_REF: 2, LABEL_MENTION: 1}.get(label, 0)
+
+
+def add_link(
+    links: list[dict],
+    seen: set[tuple[str, str, str]],
+    source: str,
+    target: str | None,
+    label: str,
+    strength: float = 0.5,
+    visible: bool = True,
+    reason: str = "",
+) -> None:
     if not target or source == target:
         return
     key = (source, target, label)
     if key in seen:
         return
     seen.add(key)
-    links.append({"source": source, "target": target, "label": label})
+    link = {"source": source, "target": target, "label": label, "strength": round(float(strength), 3)}
+    if not visible:
+        link["visible"] = False
+    if reason:
+        link["reason"] = reason
+    links.append(link)
+
+
+def topic_signal(topic: str, node: dict, body: str, text: str) -> tuple[float, bool, str]:
+    topic_l = topic.lower()
+    title_l = str(node.get("label") or "").lower()
+    tags_l = [str(x).lower() for x in node.get("tags") or []]
+    body_l = body.lower()
+    text_l = text.lower()
+    count = text_l.count(topic_l)
+    if topic_l in title_l:
+        return 0.9, True, "title match"
+    if any(topic_l == tag or topic_l in tag for tag in tags_l):
+        return 0.82, True, "tag match"
+    if f"[[{topic_l}" in body_l:
+        return 0.78, True, "explicit wiki link"
+    if count >= 3:
+        return 0.68, True, f"repeated mention x{count}"
+    return 0.25, False, "weak mention"
+
+
+def compact_visible_links(links: list[dict]) -> list[dict]:
+    best_by_pair: dict[tuple[str, str], dict] = {}
+    for link in links:
+        pair = tuple(sorted([str(link["source"]), str(link["target"])]))
+        current = best_by_pair.get(pair)
+        score = float(link.get("strength", 0)) + label_rank(str(link.get("label"))) * 0.1
+        if current is None:
+            best_by_pair[pair] = {"link": link, "score": score}
+        elif score > current["score"]:
+            current["link"]["visible"] = False
+            best_by_pair[pair] = {"link": link, "score": score}
+        else:
+            link["visible"] = False
+
+    visible_candidates = [x for x in links if x.get("visible", True)]
+    visible_candidates.sort(key=lambda x: (float(x.get("strength", 0)), label_rank(str(x.get("label")))), reverse=True)
+    degree: dict[str, int] = {}
+    keep: set[int] = set()
+    for link in visible_candidates:
+        source = str(link["source"])
+        target = str(link["target"])
+        strong = float(link.get("strength", 0)) >= 0.88
+        source_room = degree.get(source, 0) < (MAX_VISIBLE_DEGREE + (3 if strong else 0))
+        target_room = degree.get(target, 0) < (MAX_VISIBLE_DEGREE + (3 if strong else 0))
+        if source_room and target_room:
+            keep.add(id(link))
+            degree[source] = degree.get(source, 0) + 1
+            degree[target] = degree.get(target, 0) + 1
+
+    for link in links:
+        if link.get("visible", True) and id(link) not in keep:
+            link["visible"] = False
+            link["reason"] = (str(link.get("reason") or "") + "; hidden by degree cap").strip("; ")
+    return links
 
 
 def main() -> int:
@@ -151,9 +229,9 @@ def main() -> int:
         fm_links = fm.get("links")
         if isinstance(fm_links, list):
             for item in fm_links:
-                add_link(links, seen, source, normalize_target(str(item), title_to_node, path_to_node), "关联")
+                add_link(links, seen, source, normalize_target(str(item), title_to_node, path_to_node), LABEL_ASSOC, strength=0.82, visible=True, reason="frontmatter link")
         for match in WIKI_RE.finditer(body):
-            add_link(links, seen, source, normalize_target(match.group(1), title_to_node, path_to_node), "引用")
+            add_link(links, seen, source, normalize_target(match.group(1), title_to_node, path_to_node), LABEL_REF, strength=0.72, visible=True, reason="wiki link")
 
         lower_text = text.lower()
         for topic, meta in DERIVED_TOPICS.items():
@@ -162,9 +240,11 @@ def main() -> int:
             topic_id = "topic-" + slug(topic)
             if not any(n["id"] == topic_id for n in nodes):
                 nodes.append({"id": topic_id, "label": topic, "type": meta["type"], "doc": node["doc"], "docs": node.get("docs", [node["doc"]]), "sources": node.get("sources", []), "summary": meta["summary"], "tags": meta["tags"]})
-            add_link(links, seen, source, topic_id, "提到")
+            strength, visible, reason = topic_signal(topic, node, body, text)
+            add_link(links, seen, source, topic_id, LABEL_MENTION, strength=strength, visible=visible, reason=reason)
 
     GRAPH.parent.mkdir(parents=True, exist_ok=True)
+    links = compact_visible_links(links)
     GRAPH.write_text(json.dumps({"nodes": nodes, "links": links}, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"已生成 {GRAPH}")
     print(f"节点: {len(nodes)}，连线: {len(links)}")
