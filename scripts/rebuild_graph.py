@@ -36,6 +36,7 @@ LABEL_MENTION = "\u63d0\u5230"
 MAX_VISIBLE_DEGREE = 8
 
 FRONT_RE = re.compile(r"^---\n(.*?)\n---\n", re.S)
+IMPORT_SOURCE_RE = re.compile(r"raw/imports/(\d{8}-\d{6})/")
 
 
 def slug(text: str) -> str:
@@ -94,6 +95,14 @@ def summary_from_body(body: str) -> str:
 
 def rel_doc(path: Path) -> str:
     return "../" + path.relative_to(ROOT).as_posix()
+
+
+def import_stamp(sources: list[str]) -> str:
+    for source in sources:
+        match = IMPORT_SOURCE_RE.search(str(source))
+        if match:
+            return match.group(1)
+    return ""
 
 
 def normalize_target(raw: str, title_to_node: dict[str, str], path_to_node: dict[str, str]) -> str | None:
@@ -214,7 +223,10 @@ def main() -> int:
         sources = fm.get("sources") if isinstance(fm.get("sources"), list) else []
         docs_meta = fm.get("docs") if isinstance(fm.get("docs"), list) else []
         doc_url = rel_doc(path)
-        node = {"id": node_id, "label": title, "type": node_type, "doc": doc_url, "docs": [doc_url] + [str(x) for x in docs_meta], "sources": [str(x) for x in sources], "summary": str(fm.get("summary") or summary_from_body(body)), "tags": tags}
+        source_refs = [str(x) for x in sources]
+        created_at = str(fm.get("created_at") or "")
+        imported_at = created_at or import_stamp(source_refs)
+        node = {"id": node_id, "label": title, "type": node_type, "doc": doc_url, "docs": [doc_url] + [str(x) for x in docs_meta], "sources": source_refs, "summary": str(fm.get("summary") or summary_from_body(body)), "tags": tags, "is_new": False, "imported_at": imported_at}
         nodes.append(node)
         docs.append((path, node, fm, body, text))
         title_to_node[title] = node_id
@@ -223,6 +235,14 @@ def main() -> int:
 
     links: list[dict] = []
     seen: set[tuple[str, str, str]] = set()
+
+    recent_nodes = sorted(
+        (node for node in nodes if str(node.get("imported_at") or "")),
+        key=lambda node: str(node.get("imported_at") or ""),
+        reverse=True,
+    )[:2]
+    for node in recent_nodes:
+        node["is_new"] = True
 
     for _path, node, fm, body, text in docs:
         source = node["id"]

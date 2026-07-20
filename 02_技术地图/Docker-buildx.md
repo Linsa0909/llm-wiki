@@ -1,22 +1,32 @@
 ---
 title: Docker buildx
 type: tool
-summary: 智能导入从 Mino17 红外相机 RK3588 C++ 采集推流方案汇报 中识别到的 Docker buildx 相关知识点。
+summary: 从项目资料包中自动识别的 Docker buildx 相关技术节点。
 tags:
-  - 导入
-  - 智能导入
+  - WSL2
+  - Docker
+  - Buildx
+  - Ubuntu22.04
+  - systemd
+  - 部署
+  - 命令
+  - 项目导入
   - docker
   - buildx
   - multi-arch
 links:
-  - Mino17 红外相机 RK3588 C++ 采集推流方案汇报
-  - 容器镜像构建
+  - Docker
+  - Docker buildx
   - 部署与运维
   - Linux 系统与设备
-  - 视频采集与推流
+  - 容器镜像构建
+  - WSL2 Ubuntu 22.04 Docker Engine 与 Buildx 安装配置
 sources:
   - raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md
+  - raw/imports/20260713-195439/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置.md
 ---
+# Docker buildx
+
 # Docker buildx
 
 ## 导入来源：智能导入
@@ -152,3 +162,18 @@ Docker buildx 是 Docker 官方 CLI 插件，用于构建**多架构（multi-arc
     docker buildx create --name remote-builder --driver docker-container --context rk3588 --platform linux/arm64
     ```  
   - 确保构建缓存挂载（`--cache-to` / `--cache-from`）以减少重复编译时间，特别是 FFmpeg 这种大型库。
+
+## 导入来源：项目资料包
+
+## 自动识别依据
+
+### 来源：WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置.md
+# 来源：WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置.md
+
+### WSL2 Ubuntu 22.04 Docker Engine 与 Buildx 安装配置
+# WSL2 Ubuntu 22.04 Docker Engine 与 Buildx 安装配置
+
+### 目标
+## 目标
+
+在 Windows 的 WSL2 Ubuntu 22.04 环境中安装 Docker 官方 Docker Engine、Docker CLI、containerd、Buildx 和 Compose 插件，并确保 Docker daemon 由 systemd 管理，解决 `Docker daemon 未运行`、`/var/run/docker.sock 不存在`、`docker version 只有 Client 没有 Server` 等问题。

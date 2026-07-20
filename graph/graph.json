@@ -10,7 +10,86 @@
       ],
       "sources": [],
       "summary": "本项目已经把原先基于 `ffmpeg` 命令行的采集推流流程，改造成 **C++ 直接调用 FFmpeg/libav 库 API** 的方式，并在 RK3588 上通过 `h264_rkmpp` 完成 H264 硬件编码，再推流到 ZLMediaKit 分发。",
-      "tags": []
+      "tags": [],
+      "is_new": false,
+      "imported_at": ""
+    },
+    {
+      "id": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
+      "label": "Git 常用命令与 ghostcloud.cn 内网访问处理",
+      "type": "project",
+      "doc": "../01_项目复盘/Git-常用命令与-ghostcloud.cn-内网访问处理.md",
+      "docs": [
+        "../01_项目复盘/Git-常用命令与-ghostcloud.cn-内网访问处理.md"
+      ],
+      "sources": [
+        "raw/imports/20260714-153922/Git-常用命令与-ghostcloud.cn-内网访问处理.md"
+      ],
+      "summary": "由项目资料包自动生成的项目复盘入口，包含拆分节点和候选关系。",
+      "tags": [
+        "Git",
+        "Git URL 重写 insteadOf",
+        "版本控制",
+        "命令",
+        "远程仓库",
+        "ghostcloud",
+        "insteadOf",
+        "排障",
+        "项目导入",
+        "project"
+      ],
+      "is_new": false,
+      "imported_at": "20260714-153922"
+    },
+    {
+      "id": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "label": "ROS 2 设备集成常用知识：V4L2、rosdep、colcon、sensor_msgs",
+      "type": "project",
+      "doc": "../01_项目复盘/ROS-2-设备集成常用知识-V4L2-rosdep-colcon-sensor-msgs.md",
+      "docs": [
+        "../01_项目复盘/ROS-2-设备集成常用知识-V4L2-rosdep-colcon-sensor-msgs.md"
+      ],
+      "sources": [
+        "raw/imports/20260717-ros2-v4l2-sensor-msgs/ROS2-V4L2-rosdep-colcon-sensor-msgs.md"
+      ],
+      "summary": "面向 ROS 2 设备集成的常用知识入口，覆盖 V4L2 摄像头验证、rosdep 依赖安装、colcon 工作空间构建和 sensor_msgs 消息类型选择。",
+      "tags": [
+        "ROS 2",
+        "V4L2",
+        "rosdep",
+        "colcon",
+        "sensor_msgs",
+        "设备集成",
+        "命令"
+      ],
+      "is_new": false,
+      "imported_at": ""
+    },
+    {
+      "id": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "label": "WSL2 Ubuntu 22.04 Docker Engine 与 Buildx 安装配置",
+      "type": "project",
+      "doc": "../01_项目复盘/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置.md",
+      "docs": [
+        "../01_项目复盘/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置.md"
+      ],
+      "sources": [
+        "raw/imports/20260713-195439/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置.md"
+      ],
+      "summary": "由项目资料包自动生成的项目复盘入口，包含拆分节点和候选关系。",
+      "tags": [
+        "WSL2",
+        "Docker",
+        "Buildx",
+        "Ubuntu22.04",
+        "systemd",
+        "部署",
+        "命令",
+        "项目导入",
+        "project"
+      ],
+      "is_new": false,
+      "imported_at": "20260713-195439"
     },
     {
       "id": "02_技术地图-1.dds通信",
@@ -26,7 +105,9 @@
       "summary": "1.DDS通信",
       "tags": [
         "导入"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260709-155645"
     },
     {
       "id": "02_技术地图-c++调用ffmpeg库",
@@ -38,7 +119,9 @@
       ],
       "sources": [],
       "summary": "`ffmpeg` 既可以是命令行工具，也可以是一组可被 C/C++ 调用的库。本项目不是执行 `ffmpeg` 命令，而是在 C++ 中链接并调用 FFmpeg/libav 库。",
-      "tags": []
+      "tags": [],
+      "is_new": false,
+      "imported_at": ""
     },
     {
       "id": "02_技术地图-docker-buildx-跨架构编译-x86-arm-实战指南",
@@ -54,7 +137,9 @@
       "summary": "默认情况下，在 x86_64 服务器上 `docker build` 出来的镜像只能在 x86 机器上运行。如果强行拿到 ARM 架构（如树莓派、鲲鹏、飞腾服务器）上运行，会直接报 `Exec format error`（二进制执行格式错误）。",
       "tags": [
         "导入"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260709-171413"
     },
     {
       "id": "02_技术地图-docker-buildx",
@@ -65,16 +150,49 @@
         "../02_技术地图/Docker-buildx.md"
       ],
       "sources": [
-        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md"
+        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md",
+        "raw/imports/20260713-195439/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置.md"
       ],
-      "summary": "智能导入从 Mino17 红外相机 RK3588 C++ 采集推流方案汇报 中识别到的 Docker buildx 相关知识点。",
+      "summary": "从项目资料包中自动识别的 Docker buildx 相关技术节点。",
       "tags": [
-        "导入",
-        "智能导入",
+        "WSL2",
+        "Docker",
+        "Buildx",
+        "Ubuntu22.04",
+        "systemd",
+        "部署",
+        "命令",
+        "项目导入",
         "docker",
         "buildx",
         "multi-arch"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260710-160955"
+    },
+    {
+      "id": "02_技术地图-docker-ipc-模式与-ros-2-dds-共享内存",
+      "label": "Docker IPC 模式与 ROS 2 DDS 共享内存",
+      "type": "note",
+      "doc": "../02_技术地图/Docker-IPC-模式与-ROS-2-DDS-共享内存.md",
+      "docs": [
+        "../02_技术地图/Docker-IPC-模式与-ROS-2-DDS-共享内存.md"
+      ],
+      "sources": [
+        "raw/imports/20260714-203108/Docker-IPC模式与ROS2-DDS共享内存.md"
+      ],
+      "summary": "IPC 是 **Inter-Process Communication（进程间通信）**。Linux 进程可以通过共享内存、信号量、消息队列、管道、Unix Socket 等机制协作。",
+      "tags": [
+        "Docker",
+        "IPC",
+        "ROS 2",
+        "DDS",
+        "Fast DDS",
+        "共享内存",
+        "/dev/shm"
+      ],
+      "is_new": true,
+      "imported_at": "20260714-203108"
     },
     {
       "id": "02_技术地图-docker",
@@ -85,15 +203,24 @@
         "../02_技术地图/Docker.md"
       ],
       "sources": [
-        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md"
+        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md",
+        "raw/imports/20260713-195439/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置.md"
       ],
-      "summary": "智能导入从 Mino17 红外相机 RK3588 C++ 采集推流方案汇报 中识别到的 Docker 相关知识点。",
+      "summary": "从项目资料包中自动识别的 Docker 相关技术节点。",
       "tags": [
-        "导入",
-        "智能导入",
+        "WSL2",
+        "Docker",
+        "Buildx",
+        "Ubuntu22.04",
+        "systemd",
+        "部署",
+        "命令",
+        "项目导入",
         "docker",
         "container"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260710-160955"
     },
     {
       "id": "02_技术地图-docker相关",
@@ -109,7 +236,9 @@
       "summary": "**1. 打包镜像 (Build)**",
       "tags": [
         "导入"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260709-171413"
     },
     {
       "id": "02_技术地图-docker离线部署",
@@ -121,7 +250,9 @@
       ],
       "sources": [],
       "summary": "生成：",
-      "tags": []
+      "tags": [],
+      "is_new": false,
+      "imported_at": ""
     },
     {
       "id": "02_技术地图-ffmpeg",
@@ -140,7 +271,86 @@
         "智能导入",
         "ffmpeg",
         "video"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260710-160955"
+    },
+    {
+      "id": "02_技术地图-git-url-重写-insteadof",
+      "label": "Git URL 重写 insteadOf",
+      "type": "tool",
+      "doc": "../02_技术地图/Git-URL-重写-insteadOf.md",
+      "docs": [
+        "../02_技术地图/Git-URL-重写-insteadOf.md"
+      ],
+      "sources": [
+        "raw/imports/20260714-153922/Git-常用命令与-ghostcloud.cn-内网访问处理.md"
+      ],
+      "summary": "Git 的 URL 重写机制，可在不修改仓库 remote URL 的情况下，将不可访问的域名自动改写为可访问的内网 IP 或替代地址。",
+      "tags": [
+        "Git",
+        "remote",
+        "insteadOf",
+        "ghostcloud",
+        "内网访问",
+        "排障"
+      ],
+      "is_new": false,
+      "imported_at": "20260714-153922"
+    },
+    {
+      "id": "02_技术地图-git-常用命令与-ghostcloud.cn-内网访问处理-命令清单",
+      "label": "Git 常用命令与 ghostcloud.cn 内网访问处理 命令清单",
+      "type": "tool",
+      "doc": "../02_技术地图/Git-常用命令与-ghostcloud.cn-内网访问处理-命令清单.md",
+      "docs": [
+        "../02_技术地图/Git-常用命令与-ghostcloud.cn-内网访问处理-命令清单.md"
+      ],
+      "sources": [
+        "raw/imports/20260714-153922/Git-常用命令与-ghostcloud.cn-内网访问处理.md"
+      ],
+      "summary": "从项目 Markdown 代码块中自动提取的常用命令。",
+      "tags": [
+        "Git",
+        "Git URL 重写 insteadOf",
+        "版本控制",
+        "命令",
+        "远程仓库",
+        "ghostcloud",
+        "insteadOf",
+        "排障",
+        "项目导入",
+        "commands"
+      ],
+      "is_new": false,
+      "imported_at": "20260714-153922"
+    },
+    {
+      "id": "02_技术地图-git",
+      "label": "Git",
+      "type": "tool",
+      "doc": "../02_技术地图/Git.md",
+      "docs": [
+        "../02_技术地图/Git.md"
+      ],
+      "sources": [
+        "raw/imports/20260714-153922/Git-常用命令与-ghostcloud.cn-内网访问处理.md"
+      ],
+      "summary": "从项目资料包中自动识别的 Git 相关技术节点。",
+      "tags": [
+        "Git",
+        "版本控制",
+        "命令",
+        "远程仓库",
+        "ghostcloud",
+        "insteadOf",
+        "排障",
+        "项目导入",
+        "git",
+        "version-control"
+      ],
+      "is_new": false,
+      "imported_at": "20260714-153922"
     },
     {
       "id": "02_技术地图-jmter",
@@ -156,7 +366,9 @@
       "summary": "JMeter：报错（Content type 'text/plain;charset=UTF-8' not supported\"）",
       "tags": [
         "导入"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260709-171413"
     },
     {
       "id": "02_技术地图-linux-shell",
@@ -167,15 +379,25 @@
         "../02_技术地图/Linux-Shell.md"
       ],
       "sources": [
-        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md"
+        "raw/imports/20260710-160955/Mino17_Cpp_RK3588_Report.md",
+        "raw/imports/20260713-195439/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置.md",
+        "raw/imports/20260714-153922/Git-常用命令与-ghostcloud.cn-内网访问处理.md"
       ],
-      "summary": "智能导入从 Mino17 红外相机 RK3588 C++ 采集推流方案汇报 中识别到的 Linux Shell 相关知识点。",
+      "summary": "从项目资料包中自动识别的 Linux Shell 相关技术节点。",
       "tags": [
-        "导入",
-        "智能导入",
+        "Git",
+        "版本控制",
+        "命令",
+        "远程仓库",
+        "ghostcloud",
+        "insteadOf",
+        "排障",
+        "项目导入",
         "linux",
         "shell"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260710-160955"
     },
     {
       "id": "02_技术地图-linux-系统与设备",
@@ -194,7 +416,9 @@
         "智能导入",
         "linux",
         "device"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260710-160955"
     },
     {
       "id": "02_技术地图-linux-设备文件与-udev-详解",
@@ -210,7 +434,9 @@
       "summary": "Linux 将所有 I/O 设备抽象为文件，统一通过 `open()/read()/write()/ioctl()/close()` 访问。",
       "tags": [
         "导入"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260709-155519"
     },
     {
       "id": "02_技术地图-linux设备文件与v4l2",
@@ -222,7 +448,9 @@
       ],
       "sources": [],
       "summary": "Linux 下摄像头会被识别成 `/dev/videoX` 这类设备文件。程序不是“找到摄像头名字”就能工作，而是要打开正确的设备节点。",
-      "tags": []
+      "tags": [],
+      "is_new": false,
+      "imported_at": ""
     },
     {
       "id": "02_技术地图-mino17-红外相机-rk3588-c-采集推流方案汇报-命令片段",
@@ -240,7 +468,34 @@
         "导入",
         "智能导入",
         "commands"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260710-160955"
+    },
+    {
+      "id": "02_技术地图-mino17adapter-代码讲解-pipeline-生命周期与编译链接",
+      "label": "Mino17Adapter 代码讲解：pipeline、生命周期与编译链接",
+      "type": "note",
+      "doc": "../02_技术地图/Mino17Adapter-代码讲解-pipeline-生命周期与编译链接.md",
+      "docs": [
+        "../02_技术地图/Mino17Adapter-代码讲解-pipeline-生命周期与编译链接.md"
+      ],
+      "sources": [
+        "raw/imports/20260713-200504/Mino17Adapter-pipeline-lifecycle-build.md"
+      ],
+      "summary": "`Mino17Adapter` 是 Mino17 红外相机的 HAL 适配器。它不只是“声明一个设备”，而是把真实 Linux 视频设备、ZLMediaKit、推流进程、HAL 属性和服务调用连接起来。",
+      "tags": [
+        "Mino17",
+        "HAL",
+        "C++",
+        "pipeline",
+        "V4L2",
+        "ZLMediaKit",
+        "RK3588",
+        "代码讲解"
+      ],
+      "is_new": false,
+      "imported_at": "20260713-200504"
     },
     {
       "id": "02_技术地图-rk3588",
@@ -259,7 +514,9 @@
         "智能导入",
         "rk3588",
         "arm64"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260710-160955"
     },
     {
       "id": "02_技术地图-rk3588硬件编码rkmpp",
@@ -271,7 +528,176 @@
       ],
       "sources": [],
       "summary": "`rkmpp` 是 Rockchip MPP 的 FFmpeg 编码/解码接口。在 RK3588 上，使用 `h264_rkmpp` 可以把 H264 编码放到硬件单元执行，降低 CPU 压力。",
-      "tags": []
+      "tags": [],
+      "is_new": false,
+      "imported_at": ""
+    },
+    {
+      "id": "02_技术地图-ros-2-colcon-工作空间构建",
+      "label": "ROS 2 colcon 工作空间构建",
+      "type": "tool",
+      "doc": "../02_技术地图/ROS-2-colcon-工作空间构建.md",
+      "docs": [
+        "../02_技术地图/ROS-2-colcon-工作空间构建.md"
+      ],
+      "sources": [
+        "raw/imports/20260717-ros2-v4l2-sensor-msgs/ROS2-V4L2-rosdep-colcon-sensor-msgs.md"
+      ],
+      "summary": "colcon 是 ROS 2 工作空间的构建工具，通常在 rosdep 安装依赖后执行，用于编译 src 下的一个或多个包并生成 install overlay。",
+      "tags": [
+        "ROS 2",
+        "colcon",
+        "build",
+        "workspace",
+        "symlink-install",
+        "Humble"
+      ],
+      "is_new": false,
+      "imported_at": ""
+    },
+    {
+      "id": "02_技术地图-ros-2-rosdep-依赖安装",
+      "label": "ROS 2 rosdep 依赖安装",
+      "type": "tool",
+      "doc": "../02_技术地图/ROS-2-rosdep-依赖安装.md",
+      "docs": [
+        "../02_技术地图/ROS-2-rosdep-依赖安装.md"
+      ],
+      "sources": [
+        "raw/imports/20260717-ros2-v4l2-sensor-msgs/ROS2-V4L2-rosdep-colcon-sensor-msgs.md"
+      ],
+      "summary": "rosdep install 会扫描工作空间 src 下的 package.xml，自动安装缺失的系统依赖，是 colcon build 前的重要准备步骤。",
+      "tags": [
+        "ROS 2",
+        "rosdep",
+        "Humble",
+        "package.xml",
+        "dependency",
+        "apt"
+      ],
+      "is_new": false,
+      "imported_at": ""
+    },
+    {
+      "id": "02_技术地图-ros-2-sensor-msgs-传感器消息类型",
+      "label": "ROS 2 sensor_msgs 传感器消息类型",
+      "type": "concept",
+      "doc": "../02_技术地图/ROS-2-sensor-msgs-传感器消息类型.md",
+      "docs": [
+        "../02_技术地图/ROS-2-sensor-msgs-传感器消息类型.md"
+      ],
+      "sources": [
+        "raw/imports/20260717-ros2-v4l2-sensor-msgs/ROS2-V4L2-rosdep-colcon-sensor-msgs.md"
+      ],
+      "summary": "sensor_msgs 是 ROS 2 标准传感器消息包，覆盖图像、点云、激光雷达、IMU、GNSS、磁力计、关节、电池、摇杆和环境传感器等常用数据。",
+      "tags": [
+        "ROS 2",
+        "sensor_msgs",
+        "Image",
+        "PointCloud2",
+        "LaserScan",
+        "Imu",
+        "NavSatFix"
+      ],
+      "is_new": false,
+      "imported_at": ""
+    },
+    {
+      "id": "02_技术地图-ros-2-基础命令排障图谱-service-topic-dds-rmw-ipc",
+      "label": "ROS 2 基础命令排障图谱：Service、Topic、DDS、RMW、IPC",
+      "type": "note",
+      "doc": "../02_技术地图/ROS-2-基础命令排障图谱-Service-Topic-DDS-RMW-IPC.md",
+      "docs": [
+        "../02_技术地图/ROS-2-基础命令排障图谱-Service-Topic-DDS-RMW-IPC.md"
+      ],
+      "sources": [],
+      "summary": "以 ROS 2 基础命令为项目中心节点，连接 Node、Topic、Service、srv/msg、DDS、RMW、Docker IPC、ROS_LOCALHOST_ONLY 和生命周期节点，形成从发现到调用再到排障的最小确认链路。",
+      "tags": [
+        "ROS 2",
+        "Service",
+        "Topic",
+        "srv",
+        "msg",
+        "DDS",
+        "RMW",
+        "Docker",
+        "IPC",
+        "排障"
+      ],
+      "is_new": true,
+      "imported_at": "20260715-113846"
+    },
+    {
+      "id": "02_技术地图-ros-2-常用命令速查与排障",
+      "label": "ROS 2 常用命令速查与排障",
+      "type": "note",
+      "doc": "../02_技术地图/ROS-2-常用命令速查与排障.md",
+      "docs": [
+        "../02_技术地图/ROS-2-常用命令速查与排障.md"
+      ],
+      "sources": [
+        "raw/imports/20260714-202751/ROS2-常用命令速查与排障.md"
+      ],
+      "summary": "每个新终端都要先加载 ROS 2 基础环境。若还要使用自己的工作空间，应先加载基础环境，再加载工作空间覆盖层：",
+      "tags": [
+        "ROS 2",
+        "命令速查",
+        "调试",
+        "colcon",
+        "rosbag",
+        "DDS"
+      ],
+      "is_new": false,
+      "imported_at": "20260714-202751"
+    },
+    {
+      "id": "02_技术地图-v4l2-摄像头验证命令",
+      "label": "V4L2 摄像头验证命令",
+      "type": "tool",
+      "doc": "../02_技术地图/V4L2-摄像头验证命令.md",
+      "docs": [
+        "../02_技术地图/V4L2-摄像头验证命令.md"
+      ],
+      "sources": [
+        "raw/imports/20260717-ros2-v4l2-sensor-msgs/ROS2-V4L2-rosdep-colcon-sensor-msgs.md"
+      ],
+      "summary": "使用 v4l2-ctl 枚举摄像头设备、查看驱动能力、列出格式帧率，并进行指定格式的 mmap 流测试。",
+      "tags": [
+        "V4L2",
+        "v4l2-ctl",
+        "摄像头",
+        "video",
+        "MJPG",
+        "帧率"
+      ],
+      "is_new": false,
+      "imported_at": ""
+    },
+    {
+      "id": "02_技术地图-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-命令清单",
+      "label": "WSL2 Ubuntu 22.04 Docker Engine 与 Buildx 安装配置 命令清单",
+      "type": "tool",
+      "doc": "../02_技术地图/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置-命令清单.md",
+      "docs": [
+        "../02_技术地图/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置-命令清单.md"
+      ],
+      "sources": [
+        "raw/imports/20260713-195439/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置.md"
+      ],
+      "summary": "从项目 Markdown 代码块中自动提取的常用命令。",
+      "tags": [
+        "WSL2",
+        "Docker",
+        "Buildx",
+        "Ubuntu22.04",
+        "systemd",
+        "部署",
+        "命令",
+        "项目导入",
+        "commands"
+      ],
+      "is_new": false,
+      "imported_at": "20260713-195439"
     },
     {
       "id": "02_技术地图-zlmediakit",
@@ -290,7 +716,9 @@
         "智能导入",
         "streaming",
         "zlm"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260710-160955"
     },
     {
       "id": "02_技术地图-zlmediakit流媒体分发",
@@ -302,7 +730,9 @@
       ],
       "sources": [],
       "summary": "C++ 程序只负责把 H264 RTMP 流推到 ZLMediaKit。ZLMediaKit 负责把同一路流转成多种播放协议。",
-      "tags": []
+      "tags": [],
+      "is_new": false,
+      "imported_at": ""
     },
     {
       "id": "02_技术地图-一-关于-socket-的介绍",
@@ -318,23 +748,9 @@
       "summary": "​\tSocket 又称 \"套接字\"，应用程序通常通过 \"套接字\" 向网络发出请求或者应答网络请求，使主机间或者一台计算机上的进程间可以通讯。python中提供了两个基本的 Socket 模块：服务端 Socket 和客户端 Socket，当创建了一个服务端 Socket 后，这个 Socket 就会在本机的一个端口上等",
       "tags": [
         "导入"
-      ]
-    },
-    {
-      "id": "02_技术地图-一-核心概念",
-      "label": "一、核心概念",
-      "type": "concept",
-      "doc": "../02_技术地图/一-核心概念.md",
-      "docs": [
-        "../02_技术地图/一-核心概念.md"
       ],
-      "sources": [
-        "raw/imports/20260709-163558/二进制协议解析指南.md"
-      ],
-      "summary": "",
-      "tags": [
-        "导入"
-      ]
+      "is_new": false,
+      "imported_at": "20260709-171413"
     },
     {
       "id": "02_技术地图-七-调试技巧清单",
@@ -350,7 +766,9 @@
       "summary": "",
       "tags": [
         "导入"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260709-163558"
     },
     {
       "id": "02_技术地图-三-帧同步状态机-解决粘包-拆包",
@@ -366,39 +784,9 @@
       "summary": "",
       "tags": [
         "导入"
-      ]
-    },
-    {
-      "id": "02_技术地图-九-最小可行验证-马上就能做",
-      "label": "九、最小可行验证（马上就能做）",
-      "type": "concept",
-      "doc": "../02_技术地图/九-最小可行验证-马上就能做.md",
-      "docs": [
-        "../02_技术地图/九-最小可行验证-马上就能做.md"
       ],
-      "sources": [
-        "raw/imports/20260709-163558/二进制协议解析指南.md"
-      ],
-      "summary": "不需要开发板也能训练协议解析：",
-      "tags": [
-        "导入"
-      ]
-    },
-    {
-      "id": "02_技术地图-二-python-struct-完全指南",
-      "label": "二、Python struct 完全指南",
-      "type": "concept",
-      "doc": "../02_技术地图/二-Python-struct-完全指南.md",
-      "docs": [
-        "../02_技术地图/二-Python-struct-完全指南.md"
-      ],
-      "sources": [
-        "raw/imports/20260709-163558/二进制协议解析指南.md"
-      ],
-      "summary": "",
-      "tags": [
-        "导入"
-      ]
+      "is_new": false,
+      "imported_at": "20260709-163558"
     },
     {
       "id": "02_技术地图-五-校验算法合集",
@@ -414,39 +802,9 @@
       "summary": "",
       "tags": [
         "导入"
-      ]
-    },
-    {
-      "id": "02_技术地图-八-推荐工具链",
-      "label": "八、推荐工具链",
-      "type": "concept",
-      "doc": "../02_技术地图/八-推荐工具链.md",
-      "docs": [
-        "../02_技术地图/八-推荐工具链.md"
       ],
-      "sources": [
-        "raw/imports/20260709-163558/二进制协议解析指南.md"
-      ],
-      "summary": "",
-      "tags": [
-        "导入"
-      ]
-    },
-    {
-      "id": "02_技术地图-六-esp32-端代码示例-配套",
-      "label": "六、ESP32 端代码示例（配套）",
-      "type": "concept",
-      "doc": "../02_技术地图/六-ESP32-端代码示例-配套.md",
-      "docs": [
-        "../02_技术地图/六-ESP32-端代码示例-配套.md"
-      ],
-      "sources": [
-        "raw/imports/20260709-163558/二进制协议解析指南.md"
-      ],
-      "summary": "",
-      "tags": [
-        "导入"
-      ]
+      "is_new": false,
+      "imported_at": "20260709-163558"
     },
     {
       "id": "02_技术地图-四-wireshark-抓包分析流程",
@@ -462,7 +820,9 @@
       "summary": "",
       "tags": [
         "导入"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260709-163558"
     },
     {
       "id": "02_技术地图-容器镜像构建",
@@ -483,39 +843,9 @@
         "buildx",
         "image",
         "arm64"
-      ]
-    },
-    {
-      "id": "02_技术地图-框架压测学习",
-      "label": "框架压测学习",
-      "type": "concept",
-      "doc": "../02_技术地图/框架压测学习.md",
-      "docs": [
-        "../02_技术地图/框架压测学习.md"
       ],
-      "sources": [
-        "raw/imports/20260709-171413/框架压测学习.md"
-      ],
-      "summary": "正则表达式（Regular expressions，也叫 REs、regexs 或 regex patterns）",
-      "tags": [
-        "导入"
-      ]
-    },
-    {
-      "id": "02_技术地图-框架更新环境",
-      "label": "框架更新环境-",
-      "type": "concept",
-      "doc": "../02_技术地图/框架更新环境.md",
-      "docs": [
-        "../02_技术地图/框架更新环境.md"
-      ],
-      "sources": [
-        "raw/imports/20260709-171413/框架更新环境-.md"
-      ],
-      "summary": "框架更新环境：",
-      "tags": [
-        "导入"
-      ]
+      "is_new": false,
+      "imported_at": "20260710-160955"
     },
     {
       "id": "02_技术地图-视频采集与推流",
@@ -534,7 +864,9 @@
         "智能导入",
         "video",
         "streaming"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260710-160955"
     },
     {
       "id": "02_技术地图-部署与运维",
@@ -553,7 +885,9 @@
         "智能导入",
         "deployment",
         "ops"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260710-160955"
     },
     {
       "id": "02_技术地图-默认注释了源码镜像以提高-apt-update-速度-如有需要可自行取消注释",
@@ -569,7 +903,9 @@
       "summary": "安装完成之后该终端会自动进入到linux子系统",
       "tags": [
         "导入"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260709-171413"
     },
     {
       "id": "03_问题库-ffmpeg开发库与运行库缺失",
@@ -581,7 +917,61 @@
       ],
       "sources": [],
       "summary": "",
-      "tags": []
+      "tags": [],
+      "is_new": false,
+      "imported_at": ""
+    },
+    {
+      "id": "03_问题库-git-常用命令与-ghostcloud.cn-内网访问处理-问题-个人经验总结",
+      "label": "Git 常用命令与 ghostcloud.cn 内网访问处理 问题：个人经验总结",
+      "type": "issue",
+      "doc": "../03_问题库/Git-常用命令与-ghostcloud.cn-内网访问处理-问题-个人经验总结.md",
+      "docs": [
+        "../03_问题库/Git-常用命令与-ghostcloud.cn-内网访问处理-问题-个人经验总结.md"
+      ],
+      "sources": [
+        "raw/imports/20260714-153922/Git-常用命令与-ghostcloud.cn-内网访问处理.md"
+      ],
+      "summary": "从项目资料包中自动识别的问题、报错或排障记录。",
+      "tags": [
+        "Git",
+        "版本控制",
+        "命令",
+        "远程仓库",
+        "ghostcloud",
+        "insteadOf",
+        "排障",
+        "项目导入",
+        "issue"
+      ],
+      "is_new": false,
+      "imported_at": "20260714-153922"
+    },
+    {
+      "id": "03_问题库-git-远程仓库域名访问失败-ghostcloud.cn-改走-192.168.2.46",
+      "label": "Git 远程仓库域名访问失败：ghostcloud.cn 改走 192.168.2.46",
+      "type": "issue",
+      "doc": "../03_问题库/Git-远程仓库域名访问失败-ghostcloud.cn-改走-192.168.2.46.md",
+      "docs": [
+        "../03_问题库/Git-远程仓库域名访问失败-ghostcloud.cn-改走-192.168.2.46.md"
+      ],
+      "sources": [
+        "raw/imports/20260714-153922/Git-常用命令与-ghostcloud.cn-内网访问处理.md"
+      ],
+      "summary": "从项目资料包中自动识别的问题、报错或排障记录。",
+      "tags": [
+        "Git",
+        "版本控制",
+        "命令",
+        "远程仓库",
+        "ghostcloud",
+        "insteadOf",
+        "排障",
+        "项目导入",
+        "issue"
+      ],
+      "is_new": false,
+      "imported_at": "20260714-153922"
     },
     {
       "id": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
@@ -599,7 +989,87 @@
         "导入",
         "智能导入",
         "issue"
-      ]
+      ],
+      "is_new": false,
+      "imported_at": "20260710-160955"
+    },
+    {
+      "id": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-docker-daemon-未运行与-socket-不存在",
+      "label": "WSL2 Ubuntu 22.04 Docker Engine 与 Buildx 安装配置 问题：Docker daemon 未运行与 socket 不存在",
+      "type": "issue",
+      "doc": "../03_问题库/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置-问题-Docker-daemon-未运行与-socket-不存在.md",
+      "docs": [
+        "../03_问题库/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置-问题-Docker-daemon-未运行与-socket-不存在.md"
+      ],
+      "sources": [
+        "raw/imports/20260713-195439/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置.md"
+      ],
+      "summary": "从项目资料包中自动识别的问题、报错或排障记录。",
+      "tags": [
+        "WSL2",
+        "Docker",
+        "Buildx",
+        "Ubuntu22.04",
+        "systemd",
+        "部署",
+        "命令",
+        "项目导入",
+        "issue"
+      ],
+      "is_new": false,
+      "imported_at": "20260713-195439"
+    },
+    {
+      "id": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-个人经验总结",
+      "label": "WSL2 Ubuntu 22.04 Docker Engine 与 Buildx 安装配置 问题：个人经验总结",
+      "type": "issue",
+      "doc": "../03_问题库/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置-问题-个人经验总结.md",
+      "docs": [
+        "../03_问题库/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置-问题-个人经验总结.md"
+      ],
+      "sources": [
+        "raw/imports/20260713-195439/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置.md"
+      ],
+      "summary": "从项目资料包中自动识别的问题、报错或排障记录。",
+      "tags": [
+        "WSL2",
+        "Docker",
+        "Buildx",
+        "Ubuntu22.04",
+        "systemd",
+        "部署",
+        "命令",
+        "项目导入",
+        "issue"
+      ],
+      "is_new": false,
+      "imported_at": "20260713-195439"
+    },
+    {
+      "id": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-常见问题与定位",
+      "label": "WSL2 Ubuntu 22.04 Docker Engine 与 Buildx 安装配置 问题：常见问题与定位",
+      "type": "issue",
+      "doc": "../03_问题库/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置-问题-常见问题与定位.md",
+      "docs": [
+        "../03_问题库/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置-问题-常见问题与定位.md"
+      ],
+      "sources": [
+        "raw/imports/20260713-195439/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置.md"
+      ],
+      "summary": "从项目资料包中自动识别的问题、报错或排障记录。",
+      "tags": [
+        "WSL2",
+        "Docker",
+        "Buildx",
+        "Ubuntu22.04",
+        "systemd",
+        "部署",
+        "命令",
+        "项目导入",
+        "issue"
+      ],
+      "is_new": false,
+      "imported_at": "20260713-195439"
     },
     {
       "id": "03_问题库-zlm端口和secret不一致",
@@ -611,7 +1081,9 @@
       ],
       "sources": [],
       "summary": "或 API 返回鉴权失败。",
-      "tags": []
+      "tags": [],
+      "is_new": false,
+      "imported_at": ""
     },
     {
       "id": "03_问题库-脚本crlf和bom导致linux执行失败",
@@ -623,7 +1095,9 @@
       ],
       "sources": [],
       "summary": "Windows 写出的 shell 脚本可能带 BOM 或 CRLF。Linux 执行 shebang 时会把不可见字符也当作路径的一部分。",
-      "tags": []
+      "tags": [],
+      "is_new": false,
+      "imported_at": ""
     },
     {
       "id": "04_设备与部署-mino17部署验收清单",
@@ -635,7 +1109,35 @@
       ],
       "sources": [],
       "summary": "预期：",
-      "tags": []
+      "tags": [],
+      "is_new": false,
+      "imported_at": ""
+    },
+    {
+      "id": "04_设备与部署-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-部署流程",
+      "label": "WSL2 Ubuntu 22.04 Docker Engine 与 Buildx 安装配置 部署流程",
+      "type": "deployment",
+      "doc": "../04_设备与部署/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置-部署流程.md",
+      "docs": [
+        "../04_设备与部署/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置-部署流程.md"
+      ],
+      "sources": [
+        "raw/imports/20260713-195439/WSL2-Ubuntu-22.04-Docker-Engine-与-Buildx-安装配置.md"
+      ],
+      "summary": "从项目资料包中自动抽取的部署、启动和验证信息。",
+      "tags": [
+        "WSL2",
+        "Docker",
+        "Buildx",
+        "Ubuntu22.04",
+        "systemd",
+        "部署",
+        "命令",
+        "项目导入",
+        "deployment"
+      ],
+      "is_new": false,
+      "imported_at": "20260713-195439"
     },
     {
       "id": "topic-libavdevice",
@@ -853,6 +1355,329 @@
       "visible": false
     },
     {
+      "source": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
+      "target": "02_技术地图-linux-shell",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
+      "target": "02_技术地图-git",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
+      "target": "02_技术地图-git-常用命令与-ghostcloud.cn-内网访问处理-命令清单",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
+      "target": "03_问题库-git-远程仓库域名访问失败-ghostcloud.cn-改走-192.168.2.46",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
+      "target": "03_问题库-git-常用命令与-ghostcloud.cn-内网访问处理-问题-个人经验总结",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
+      "target": "02_技术地图-git",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
+      "target": "02_技术地图-git-url-重写-insteadof",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
+      "target": "02_技术地图-linux-shell",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
+      "target": "02_技术地图-git-常用命令与-ghostcloud.cn-内网访问处理-命令清单",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
+      "target": "03_问题库-git-远程仓库域名访问失败-ghostcloud.cn-改走-192.168.2.46",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
+      "target": "03_问题库-git-常用命令与-ghostcloud.cn-内网访问处理-问题-个人经验总结",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "target": "02_技术地图-linux设备文件与v4l2",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "target": "02_技术地图-v4l2-摄像头验证命令",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "target": "02_技术地图-ros-2-rosdep-依赖安装",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "target": "02_技术地图-ros-2-colcon-工作空间构建",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "target": "02_技术地图-ros-2-sensor-msgs-传感器消息类型",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "target": "02_技术地图-ros-2-常用命令速查与排障",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "target": "02_技术地图-linux-shell",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "target": "02_技术地图-linux设备文件与v4l2",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "target": "02_技术地图-v4l2-摄像头验证命令",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "target": "02_技术地图-ros-2-rosdep-依赖安装",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "target": "02_技术地图-ros-2-colcon-工作空间构建",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "target": "02_技术地图-ros-2-sensor-msgs-传感器消息类型",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "target": "topic-v4l2",
+      "label": "提到",
+      "strength": 0.9,
+      "reason": "title match"
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "02_技术地图-docker",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "02_技术地图-docker-buildx",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "02_技术地图-部署与运维",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "02_技术地图-linux-系统与设备",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "02_技术地图-容器镜像构建",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "02_技术地图-linux-shell",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "02_技术地图-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-命令清单",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "04_设备与部署-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-部署流程",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-docker-daemon-未运行与-socket-不存在",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-常见问题与定位",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-个人经验总结",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "02_技术地图-docker",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "02_技术地图-docker-buildx",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "02_技术地图-linux-shell",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "02_技术地图-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-命令清单",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "04_设备与部署-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-部署流程",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-docker-daemon-未运行与-socket-不存在",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-常见问题与定位",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
+      "source": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "target": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-个人经验总结",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
+    },
+    {
       "source": "02_技术地图-c++调用ffmpeg库",
       "target": "topic-libavdevice",
       "label": "提到",
@@ -910,14 +1735,7 @@
     },
     {
       "source": "02_技术地图-docker-buildx",
-      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
-      "label": "关联",
-      "strength": 0.82,
-      "reason": "frontmatter link"
-    },
-    {
-      "source": "02_技术地图-docker-buildx",
-      "target": "02_技术地图-容器镜像构建",
+      "target": "02_技术地图-docker",
       "label": "关联",
       "strength": 0.82,
       "reason": "frontmatter link"
@@ -938,10 +1756,18 @@
     },
     {
       "source": "02_技术地图-docker-buildx",
-      "target": "02_技术地图-视频采集与推流",
+      "target": "02_技术地图-容器镜像构建",
       "label": "关联",
       "strength": 0.82,
       "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-docker-buildx",
+      "target": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
     },
     {
       "source": "02_技术地图-docker-buildx",
@@ -956,7 +1782,8 @@
       "target": "topic-libavdevice",
       "label": "提到",
       "strength": 0.68,
-      "reason": "repeated mention x3"
+      "reason": "repeated mention x3; hidden by degree cap",
+      "visible": false
     },
     {
       "source": "02_技术地图-docker-buildx",
@@ -987,7 +1814,8 @@
       "target": "topic-h264_rkmpp",
       "label": "提到",
       "strength": 0.68,
-      "reason": "repeated mention x7"
+      "reason": "repeated mention x7; hidden by degree cap",
+      "visible": false
     },
     {
       "source": "02_技术地图-docker-buildx",
@@ -1006,18 +1834,27 @@
       "reason": "weak mention"
     },
     {
-      "source": "02_技术地图-docker",
-      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "source": "02_技术地图-docker-ipc-模式与-ros-2-dds-共享内存",
+      "target": "02_技术地图-docker",
       "label": "关联",
       "strength": 0.82,
       "reason": "frontmatter link"
     },
     {
+      "source": "02_技术地图-docker-ipc-模式与-ros-2-dds-共享内存",
+      "target": "topic-zlmediakit",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
       "source": "02_技术地图-docker",
-      "target": "02_技术地图-容器镜像构建",
+      "target": "02_技术地图-docker-buildx",
       "label": "关联",
       "strength": 0.82,
-      "reason": "frontmatter link"
+      "reason": "frontmatter link",
+      "visible": false
     },
     {
       "source": "02_技术地图-docker",
@@ -1035,10 +1872,18 @@
     },
     {
       "source": "02_技术地图-docker",
-      "target": "02_技术地图-视频采集与推流",
+      "target": "02_技术地图-容器镜像构建",
       "label": "关联",
       "strength": 0.82,
       "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-docker",
+      "target": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
     },
     {
       "source": "02_技术地图-docker",
@@ -1212,39 +2057,78 @@
       "reason": "weak mention"
     },
     {
-      "source": "02_技术地图-linux-shell",
-      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "source": "02_技术地图-git-url-重写-insteadof",
+      "target": "02_技术地图-git",
       "label": "关联",
       "strength": 0.82,
       "reason": "frontmatter link"
     },
     {
-      "source": "02_技术地图-linux-shell",
-      "target": "02_技术地图-容器镜像构建",
+      "source": "02_技术地图-git-url-重写-insteadof",
+      "target": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
       "label": "关联",
       "strength": 0.82,
       "reason": "frontmatter link"
     },
     {
-      "source": "02_技术地图-linux-shell",
-      "target": "02_技术地图-部署与运维",
+      "source": "02_技术地图-git-url-重写-insteadof",
+      "target": "03_问题库-git-远程仓库域名访问失败-ghostcloud.cn-改走-192.168.2.46",
       "label": "关联",
       "strength": 0.82,
       "reason": "frontmatter link"
     },
     {
-      "source": "02_技术地图-linux-shell",
-      "target": "02_技术地图-linux-系统与设备",
+      "source": "02_技术地图-git-常用命令与-ghostcloud.cn-内网访问处理-命令清单",
+      "target": "02_技术地图-linux-shell",
       "label": "关联",
       "strength": 0.82,
       "reason": "frontmatter link"
     },
     {
-      "source": "02_技术地图-linux-shell",
-      "target": "02_技术地图-视频采集与推流",
+      "source": "02_技术地图-git-常用命令与-ghostcloud.cn-内网访问处理-命令清单",
+      "target": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-git-常用命令与-ghostcloud.cn-内网访问处理-命令清单",
+      "target": "02_技术地图-git",
       "label": "关联",
       "strength": 0.82,
       "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-git",
+      "target": "02_技术地图-linux-shell",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-git",
+      "target": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-git",
+      "target": "02_技术地图-git-url-重写-insteadof",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-linux-shell",
+      "target": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
     },
     {
       "source": "02_技术地图-linux-shell",
@@ -1338,8 +2222,7 @@
       "target": "02_技术地图-linux-shell",
       "label": "关联",
       "strength": 0.82,
-      "reason": "frontmatter link",
-      "visible": false
+      "reason": "frontmatter link"
     },
     {
       "source": "02_技术地图-linux-系统与设备",
@@ -1378,6 +2261,14 @@
       "strength": 0.25,
       "visible": false,
       "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-linux设备文件与v4l2",
+      "target": "02_技术地图-v4l2-摄像头验证命令",
+      "label": "引用",
+      "strength": 0.72,
+      "reason": "wiki link",
+      "visible": false
     },
     {
       "source": "02_技术地图-linux设备文件与v4l2",
@@ -1491,6 +2382,49 @@
       "reason": "weak mention"
     },
     {
+      "source": "02_技术地图-mino17adapter-代码讲解-pipeline-生命周期与编译链接",
+      "target": "02_技术地图-视频采集与推流",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-mino17adapter-代码讲解-pipeline-生命周期与编译链接",
+      "target": "02_技术地图-linux设备文件与v4l2",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-mino17adapter-代码讲解-pipeline-生命周期与编译链接",
+      "target": "02_技术地图-zlmediakit流媒体分发",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-mino17adapter-代码讲解-pipeline-生命周期与编译链接",
+      "target": "topic-h264_rkmpp",
+      "label": "提到",
+      "strength": 0.25,
+      "visible": false,
+      "reason": "weak mention"
+    },
+    {
+      "source": "02_技术地图-mino17adapter-代码讲解-pipeline-生命周期与编译链接",
+      "target": "topic-zlmediakit",
+      "label": "提到",
+      "strength": 0.82,
+      "reason": "tag match"
+    },
+    {
+      "source": "02_技术地图-mino17adapter-代码讲解-pipeline-生命周期与编译链接",
+      "target": "topic-v4l2",
+      "label": "提到",
+      "strength": 0.82,
+      "reason": "tag match"
+    },
+    {
       "source": "02_技术地图-rk3588",
       "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
       "label": "关联",
@@ -1596,6 +2530,205 @@
       "label": "提到",
       "strength": 0.68,
       "reason": "repeated mention x3"
+    },
+    {
+      "source": "02_技术地图-ros-2-colcon-工作空间构建",
+      "target": "02_技术地图-ros-2-rosdep-依赖安装",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-ros-2-colcon-工作空间构建",
+      "target": "02_技术地图-ros-2-常用命令速查与排障",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-ros-2-colcon-工作空间构建",
+      "target": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-ros-2-colcon-工作空间构建",
+      "target": "02_技术地图-linux-shell",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-ros-2-colcon-工作空间构建",
+      "target": "topic-v4l2",
+      "label": "提到",
+      "strength": 0.68,
+      "reason": "repeated mention x3"
+    },
+    {
+      "source": "02_技术地图-ros-2-rosdep-依赖安装",
+      "target": "02_技术地图-ros-2-colcon-工作空间构建",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-ros-2-rosdep-依赖安装",
+      "target": "02_技术地图-ros-2-常用命令速查与排障",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-ros-2-rosdep-依赖安装",
+      "target": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-ros-2-rosdep-依赖安装",
+      "target": "02_技术地图-linux-shell",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-ros-2-rosdep-依赖安装",
+      "target": "topic-v4l2",
+      "label": "提到",
+      "strength": 0.68,
+      "reason": "repeated mention x3"
+    },
+    {
+      "source": "02_技术地图-ros-2-sensor-msgs-传感器消息类型",
+      "target": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-ros-2-sensor-msgs-传感器消息类型",
+      "target": "02_技术地图-ros-2-常用命令速查与排障",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-ros-2-sensor-msgs-传感器消息类型",
+      "target": "topic-v4l2",
+      "label": "提到",
+      "strength": 0.68,
+      "reason": "repeated mention x3"
+    },
+    {
+      "source": "02_技术地图-ros-2-基础命令排障图谱-service-topic-dds-rmw-ipc",
+      "target": "02_技术地图-ros-2-常用命令速查与排障",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-ros-2-基础命令排障图谱-service-topic-dds-rmw-ipc",
+      "target": "02_技术地图-docker-ipc-模式与-ros-2-dds-共享内存",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-ros-2-基础命令排障图谱-service-topic-dds-rmw-ipc",
+      "target": "02_技术地图-1.dds通信",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-v4l2-摄像头验证命令",
+      "target": "02_技术地图-linux设备文件与v4l2",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-v4l2-摄像头验证命令",
+      "target": "01_项目复盘-ros-2-设备集成常用知识-v4l2-rosdep-colcon-sensor-msgs",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-v4l2-摄像头验证命令",
+      "target": "02_技术地图-linux-shell",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-v4l2-摄像头验证命令",
+      "target": "topic-v4l2",
+      "label": "提到",
+      "strength": 0.9,
+      "reason": "title match"
+    },
+    {
+      "source": "02_技术地图-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-命令清单",
+      "target": "02_技术地图-docker",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-命令清单",
+      "target": "02_技术地图-docker-buildx",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-命令清单",
+      "target": "02_技术地图-部署与运维",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-命令清单",
+      "target": "02_技术地图-linux-系统与设备",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-命令清单",
+      "target": "02_技术地图-容器镜像构建",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
+    },
+    {
+      "source": "02_技术地图-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-命令清单",
+      "target": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "02_技术地图-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-命令清单",
+      "target": "02_技术地图-linux-shell",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
     },
     {
       "source": "02_技术地图-zlmediakit",
@@ -1732,7 +2865,7 @@
       "target": "02_技术地图-linux-shell",
       "label": "关联",
       "strength": 0.82,
-      "reason": "frontmatter link",
+      "reason": "frontmatter link; hidden by degree cap",
       "visible": false
     },
     {
@@ -1780,15 +2913,14 @@
       "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
       "label": "关联",
       "strength": 0.82,
-      "reason": "frontmatter link; hidden by degree cap",
-      "visible": false
+      "reason": "frontmatter link"
     },
     {
       "source": "02_技术地图-视频采集与推流",
       "target": "02_技术地图-docker",
       "label": "关联",
       "strength": 0.82,
-      "reason": "frontmatter link",
+      "reason": "frontmatter link; hidden by degree cap",
       "visible": false
     },
     {
@@ -1796,15 +2928,14 @@
       "target": "02_技术地图-docker-buildx",
       "label": "关联",
       "strength": 0.82,
-      "reason": "frontmatter link",
-      "visible": false
+      "reason": "frontmatter link"
     },
     {
       "source": "02_技术地图-视频采集与推流",
       "target": "02_技术地图-linux-shell",
       "label": "关联",
       "strength": 0.82,
-      "reason": "frontmatter link",
+      "reason": "frontmatter link; hidden by degree cap",
       "visible": false
     },
     {
@@ -1852,8 +2983,7 @@
       "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
       "label": "关联",
       "strength": 0.82,
-      "reason": "frontmatter link; hidden by degree cap",
-      "visible": false
+      "reason": "frontmatter link"
     },
     {
       "source": "02_技术地图-部署与运维",
@@ -1876,7 +3006,7 @@
       "target": "02_技术地图-linux-shell",
       "label": "关联",
       "strength": 0.82,
-      "reason": "frontmatter link",
+      "reason": "frontmatter link; hidden by degree cap",
       "visible": false
     },
     {
@@ -1967,11 +3097,51 @@
       "reason": "weak mention"
     },
     {
+      "source": "03_问题库-git-常用命令与-ghostcloud.cn-内网访问处理-问题-个人经验总结",
+      "target": "02_技术地图-linux-shell",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-git-常用命令与-ghostcloud.cn-内网访问处理-问题-个人经验总结",
+      "target": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-git-远程仓库域名访问失败-ghostcloud.cn-改走-192.168.2.46",
+      "target": "02_技术地图-linux-shell",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-git-远程仓库域名访问失败-ghostcloud.cn-改走-192.168.2.46",
+      "target": "01_项目复盘-git-常用命令与-ghostcloud.cn-内网访问处理",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-git-远程仓库域名访问失败-ghostcloud.cn-改走-192.168.2.46",
+      "target": "02_技术地图-git-url-重写-insteadof",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
       "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
       "target": "02_技术地图-docker",
       "label": "关联",
       "strength": 0.82,
-      "reason": "frontmatter link",
+      "reason": "frontmatter link; hidden by degree cap",
       "visible": false
     },
     {
@@ -1979,7 +3149,7 @@
       "target": "02_技术地图-docker-buildx",
       "label": "关联",
       "strength": 0.82,
-      "reason": "frontmatter link",
+      "reason": "frontmatter link; hidden by degree cap",
       "visible": false
     },
     {
@@ -1987,7 +3157,7 @@
       "target": "02_技术地图-linux-shell",
       "label": "关联",
       "strength": 0.82,
-      "reason": "frontmatter link",
+      "reason": "frontmatter link; hidden by degree cap",
       "visible": false
     },
     {
@@ -2111,6 +3281,150 @@
       "reason": "weak mention"
     },
     {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-docker-daemon-未运行与-socket-不存在",
+      "target": "02_技术地图-docker",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-docker-daemon-未运行与-socket-不存在",
+      "target": "02_技术地图-docker-buildx",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-docker-daemon-未运行与-socket-不存在",
+      "target": "02_技术地图-部署与运维",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-docker-daemon-未运行与-socket-不存在",
+      "target": "02_技术地图-linux-系统与设备",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-docker-daemon-未运行与-socket-不存在",
+      "target": "02_技术地图-容器镜像构建",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-docker-daemon-未运行与-socket-不存在",
+      "target": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-个人经验总结",
+      "target": "02_技术地图-docker",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-个人经验总结",
+      "target": "02_技术地图-docker-buildx",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-个人经验总结",
+      "target": "02_技术地图-部署与运维",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-个人经验总结",
+      "target": "02_技术地图-linux-系统与设备",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-个人经验总结",
+      "target": "02_技术地图-容器镜像构建",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-个人经验总结",
+      "target": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-常见问题与定位",
+      "target": "02_技术地图-docker",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-常见问题与定位",
+      "target": "02_技术地图-docker-buildx",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-常见问题与定位",
+      "target": "02_技术地图-部署与运维",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-常见问题与定位",
+      "target": "02_技术地图-linux-系统与设备",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-常见问题与定位",
+      "target": "02_技术地图-容器镜像构建",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "03_问题库-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-问题-常见问题与定位",
+      "target": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
       "source": "03_问题库-zlm端口和secret不一致",
       "target": "topic-zlmediakit",
       "label": "提到",
@@ -2133,6 +3447,61 @@
       "strength": 0.25,
       "visible": false,
       "reason": "weak mention"
+    },
+    {
+      "source": "04_设备与部署-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-部署流程",
+      "target": "02_技术地图-docker",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "04_设备与部署-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-部署流程",
+      "target": "02_技术地图-docker-buildx",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "04_设备与部署-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-部署流程",
+      "target": "02_技术地图-部署与运维",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "04_设备与部署-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-部署流程",
+      "target": "02_技术地图-linux-系统与设备",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "04_设备与部署-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-部署流程",
+      "target": "02_技术地图-容器镜像构建",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link; hidden by degree cap",
+      "visible": false
+    },
+    {
+      "source": "04_设备与部署-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-部署流程",
+      "target": "01_项目复盘-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link",
+      "visible": false
+    },
+    {
+      "source": "04_设备与部署-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-部署流程",
+      "target": "02_技术地图-wsl2-ubuntu-22.04-docker-engine-与-buildx-安装配置-命令清单",
+      "label": "关联",
+      "strength": 0.82,
+      "reason": "frontmatter link"
     }
   ]
 }

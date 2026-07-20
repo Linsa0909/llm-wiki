@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PORT = int(os.environ.get("KB_PORT", "8765"))
 REBUILD = ROOT / "scripts" / "rebuild_graph.py"
 GRAPH = ROOT / "graph" / "graph.json"
+LAYOUT = ROOT / "graph" / "layout.json"
 DOC_DIRS = [ROOT / x for x in ["00_入口", "01_项目复盘", "02_技术地图", "03_问题库", "04_设备与部署"]]
 CACHE_DIR = ROOT / "graph" / "node_notes"
 ENV_FILE = ROOT / ".env.local"
@@ -78,6 +79,51 @@ def safe_id(value: str) -> str:
 
 def cache_path(node_id: str) -> Path:
     return CACHE_DIR / f"{safe_id(node_id)}.json"
+
+
+def read_layout_payload() -> dict:
+    if not LAYOUT.exists():
+        return {"ok": True, "positions": {}, "viewport": {}, "updated_at": 0}
+    try:
+        data = json.loads(LAYOUT.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {"ok": True, "positions": {}, "viewport": {}, "updated_at": 0, "warning": "layout.json is invalid"}
+    if not isinstance(data, dict):
+        data = {}
+    positions = data.get("positions") if isinstance(data.get("positions"), dict) else {}
+    viewport = data.get("viewport") if isinstance(data.get("viewport"), dict) else {}
+    return {"ok": True, "positions": positions, "viewport": viewport, "updated_at": data.get("updated_at", 0)}
+
+
+def save_layout_payload(payload: dict) -> dict:
+    positions = payload.get("positions") if isinstance(payload.get("positions"), dict) else {}
+    viewport = payload.get("viewport") if isinstance(payload.get("viewport"), dict) else {}
+    clean_positions: dict[str, dict[str, float]] = {}
+    for node_id, pos in positions.items():
+        if not isinstance(pos, dict):
+            continue
+        try:
+            x = float(pos.get("x"))
+            y = float(pos.get("y"))
+        except (TypeError, ValueError):
+            continue
+        clean_positions[str(node_id)] = {"x": round(x, 3), "y": round(y, 3)}
+
+    clean_viewport: dict[str, float] = {}
+    for key in ("scale", "ox", "oy"):
+        if key not in viewport:
+            continue
+        try:
+            clean_viewport[key] = round(float(viewport[key]), 4)
+        except (TypeError, ValueError):
+            pass
+
+    LAYOUT.parent.mkdir(parents=True, exist_ok=True)
+    record = {"positions": clean_positions, "viewport": clean_viewport, "updated_at": time.time()}
+    tmp = LAYOUT.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(record, ensure_ascii=False, indent=2), encoding="utf-8")
+    tmp.replace(LAYOUT)
+    return {"ok": True, "saved": len(clean_positions), "updated_at": record["updated_at"]}
 
 
 def read_json_body(handler: http.server.BaseHTTPRequestHandler) -> dict:
@@ -372,7 +418,8 @@ def create_node_doc(payload: dict) -> dict:
         raise ValueError("同名节点文档已存在。")
     tags = [x.strip() for x in re.split(r"[,，]", tags_raw) if x.strip()]
     links = [x.strip() for x in re.split(r"[,，]", links_raw) if x.strip()]
-    front = ["---", f"title: {title}", f"type: {node_type}", f"summary: {summary}", "tags:"]
+    created_at = time.strftime("%Y%m%d-%H%M%S")
+    front = ["---", f"title: {title}", f"type: {node_type}", f"summary: {summary}", f"created_at: {created_at}", "tags:"]
     front += [f"  - {x}" for x in tags]
     front += ["links:"] + [f"  - {x}" for x in links] + ["---", ""]
     content = "\n".join(front) + f"# {title}\n\n" + (body or summary or "待补充。") + "\n"
@@ -972,6 +1019,60 @@ def read_doc_payload(doc_ref: str) -> dict:
     return {"ok": True, "title": title, "path": path.relative_to(ROOT).as_posix(), "content": text, "encoding_warning": warning or "?" in text}
 
 
+def delete_node_doc(payload: dict) -> dict:
+    node_id = str(payload.get("id") or "").strip()
+    confirm = bool(payload.get("confirm"))
+    if not node_id:
+        raise ValueError("缺少节点 id。")
+    if not confirm:
+        raise ValueError("删除前需要确认。")
+    if node_id.startswith("topic-"):
+        raise ValueError("这是自动派生的主题节点，不是独立文档。请删除它的来源文档，重建后该主题会自动消失。")
+
+    graph = load_graph()
+    node = find_node(graph, node_id)
+    if not node:
+        raise FileNotFoundError("图谱中没有找到这个节点。")
+
+    doc_ref = str(node.get("doc") or "").strip()
+    path = resolve_doc_ref(doc_ref)
+    if not path:
+        raise FileNotFoundError("这个节点没有可归档的独立 Markdown 文档。")
+
+    rel = path.relative_to(ROOT).as_posix()
+    stamp = time.strftime("%Y%m%d-%H%M%S")
+    deleted_dir = ROOT / "raw" / "deleted" / stamp
+    deleted_dir.mkdir(parents=True, exist_ok=True)
+    target = deleted_dir / path.name
+    counter = 2
+    while target.exists():
+        target = deleted_dir / f"{path.stem}-{counter}{path.suffix}"
+        counter += 1
+    shutil.move(str(path), str(target))
+
+    note_path = cache_path(node_id)
+    note_deleted = False
+    if note_path.exists():
+        note_path.unlink()
+        note_deleted = True
+
+    layout = read_layout_payload()
+    positions = layout.get("positions")
+    if isinstance(positions, dict) and node_id in positions:
+        positions.pop(node_id, None)
+        save_layout_payload({"positions": positions, "viewport": layout.get("viewport", {})})
+
+    rebuild()
+    return {
+        "ok": True,
+        "id": node_id,
+        "title": node.get("label") or node_id,
+        "deleted_doc": rel,
+        "archived_to": target.relative_to(ROOT).as_posix(),
+        "note_deleted": note_deleted,
+    }
+
+
 def build_doc_ai_append_prompt(title: str, rel_path: str, current_text: str, instruction: str, node: dict | None, neighbors: list[dict]) -> list[dict]:
     excerpt = current_text[:9000]
     context = {
@@ -1080,6 +1181,9 @@ class KnowledgeHandler(http.server.SimpleHTTPRequestHandler):
             except Exception as exc:
                 self._send_json(404, {"ok": False, "message": str(exc)})
             return
+        if parsed.path == "/api/graph-layout":
+            self._send_json(200, read_layout_payload())
+            return
         if parsed.path == "/api/config":
             self._send_json(200, {"ok": True, "deepseek_configured": bool(DEEPSEEK_API_KEY), "model": DEEPSEEK_MODEL})
             return
@@ -1091,6 +1195,13 @@ class KnowledgeHandler(http.server.SimpleHTTPRequestHandler):
             payload = read_json_body(self)
         except json.JSONDecodeError:
             self._send_json(400, {"ok": False, "message": "请求不是合法 JSON。"})
+            return
+
+        if parsed.path == "/api/graph-layout":
+            try:
+                self._send_json(200, save_layout_payload(payload))
+            except Exception as exc:
+                self._send_json(400, {"ok": False, "message": str(exc)})
             return
 
         if parsed.path == "/api/node-note":
@@ -1154,6 +1265,13 @@ class KnowledgeHandler(http.server.SimpleHTTPRequestHandler):
         if parsed.path == "/api/node-create":
             try:
                 self._send_json(200, create_node_doc(payload))
+            except Exception as exc:
+                self._send_json(400, {"ok": False, "message": str(exc)})
+            return
+
+        if parsed.path == "/api/node-delete":
+            try:
+                self._send_json(200, delete_node_doc(payload))
             except Exception as exc:
                 self._send_json(400, {"ok": False, "message": str(exc)})
             return
