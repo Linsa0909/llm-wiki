@@ -9,6 +9,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 GRAPH = ROOT / "graph" / "graph.json"
+MANUAL_RELATIONS = ROOT / "graph" / "manual_relations.json"
+HIDDEN_RELATIONS = ROOT / "graph" / "hidden_relations.json"
 DOC_DIRS = ["01_项目复盘", "02_技术地图", "03_问题库", "04_设备与部署"]
 
 TYPE_BY_DIR = {
@@ -34,9 +36,12 @@ LABEL_ASSOC = "\u5173\u8054"
 LABEL_REF = "\u5f15\u7528"
 LABEL_MENTION = "\u63d0\u5230"
 MAX_VISIBLE_DEGREE = 8
+RECENT_NODE_LIMIT = 12
 
 FRONT_RE = re.compile(r"^---\n(.*?)\n---\n", re.S)
 IMPORT_SOURCE_RE = re.compile(r"raw/imports/(\d{8}-\d{6})/")
+MERGED_SOURCE_RE = re.compile(r"raw/merged/")
+MERGED_STAMP_RE = re.compile(r"raw/merged/(\d{8}-\d{6})/")
 
 
 def slug(text: str) -> str:
@@ -103,6 +108,54 @@ def import_stamp(sources: list[str]) -> str:
         if match:
             return match.group(1)
     return ""
+
+
+def merged_stamp(text: str) -> str:
+    match = MERGED_STAMP_RE.search(str(text or ""))
+    return match.group(1) if match else ""
+
+
+def is_truthy(value: object) -> bool:
+    return str(value or "").strip().lower() in {"1", "true", "yes", "y"}
+
+
+def is_merged_doc(fm: dict, tags: list[str], sources: list[str], text: str = "") -> bool:
+    if is_truthy(fm.get("merged")):
+        return True
+    if any(MERGED_SOURCE_RE.search(str(source)) for source in sources):
+        return True
+    if MERGED_STAMP_RE.search(str(text or "")):
+        return True
+    return any(str(tag).strip() in {"合并", "AI整理", "AI整合"} for tag in tags)
+
+
+def relation_key(source: str, target: str, label: str) -> str:
+    a, b = sorted([str(source), str(target)])
+    return f"{a}\t{b}\t{str(label)}"
+
+
+def read_relation_records(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return []
+    records = data.get("relations") if isinstance(data, dict) else data
+    return records if isinstance(records, list) else []
+
+
+def hidden_relation_keys() -> set[str]:
+    keys: set[str] = set()
+    for item in read_relation_records(HIDDEN_RELATIONS):
+        if not isinstance(item, dict):
+            continue
+        source = str(item.get("source") or "")
+        target = str(item.get("target") or "")
+        label = str(item.get("label") or LABEL_ASSOC)
+        if source and target:
+            keys.add(relation_key(source, target, label))
+    return keys
 
 
 def normalize_target(raw: str, title_to_node: dict[str, str], path_to_node: dict[str, str]) -> str | None:
@@ -225,8 +278,9 @@ def main() -> int:
         doc_url = rel_doc(path)
         source_refs = [str(x) for x in sources]
         created_at = str(fm.get("created_at") or "")
-        imported_at = created_at or import_stamp(source_refs)
-        node = {"id": node_id, "label": title, "type": node_type, "doc": doc_url, "docs": [doc_url] + [str(x) for x in docs_meta], "sources": source_refs, "summary": str(fm.get("summary") or summary_from_body(body)), "tags": tags, "is_new": False, "imported_at": imported_at}
+        imported_at = created_at or import_stamp(source_refs) or merged_stamp(text)
+        merged = is_merged_doc(fm, tags, source_refs, text)
+        node = {"id": node_id, "label": title, "type": node_type, "doc": doc_url, "docs": [doc_url] + [str(x) for x in docs_meta], "sources": source_refs, "summary": str(fm.get("summary") or summary_from_body(body)), "tags": tags, "importance": str(fm.get("importance") or "normal"), "merged": merged, "is_new": False, "imported_at": imported_at}
         nodes.append(node)
         docs.append((path, node, fm, body, text))
         title_to_node[title] = node_id
@@ -240,11 +294,13 @@ def main() -> int:
         (node for node in nodes if str(node.get("imported_at") or "")),
         key=lambda node: str(node.get("imported_at") or ""),
         reverse=True,
-    )[:2]
+    )[:RECENT_NODE_LIMIT]
     for node in recent_nodes:
         node["is_new"] = True
 
     for _path, node, fm, body, text in docs:
+        if node.get("merged"):
+            continue
         source = node["id"]
         fm_links = fm.get("links")
         if isinstance(fm_links, list):
@@ -263,7 +319,19 @@ def main() -> int:
             strength, visible, reason = topic_signal(topic, node, body, text)
             add_link(links, seen, source, topic_id, LABEL_MENTION, strength=strength, visible=visible, reason=reason)
 
+    node_ids = {str(node["id"]) for node in nodes}
+    for item in read_relation_records(MANUAL_RELATIONS):
+        if not isinstance(item, dict):
+            continue
+        source = str(item.get("source") or "")
+        target = str(item.get("target") or "")
+        label = str(item.get("label") or LABEL_ASSOC)
+        if source in node_ids and target in node_ids:
+            add_link(links, seen, source, target, label, strength=0.96, visible=True, reason="manual relation")
+
     GRAPH.parent.mkdir(parents=True, exist_ok=True)
+    hidden = hidden_relation_keys()
+    links = [link for link in links if relation_key(str(link.get("source")), str(link.get("target")), str(link.get("label") or LABEL_ASSOC)) not in hidden]
     links = compact_visible_links(links)
     GRAPH.write_text(json.dumps({"nodes": nodes, "links": links}, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"已生成 {GRAPH}")

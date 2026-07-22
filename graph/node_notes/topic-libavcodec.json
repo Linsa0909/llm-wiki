@@ -1,8 +1,0 @@
-{
-  "ok": true,
-  "id": "topic-libavcodec",
-  "note": "**libavcodec** 是 FFmpeg 项目中的核心编解码库，提供音频/视频编码、解码器注册与调用接口。在本项目中，C++ 程序通过 libavcodec 的 API（如 `avcodec_find_encoder_by_name(\"h264_rkmpp\")`、`avcodec_send_packet` / `avcodec_receive_frame`）调用 RK3588 平台的硬件编码器 `h264_rkmpp`，完成从原始视频帧到 H264 码流的硬件编码，从而降低 CPU 占用并提高实时性。它作为 FFmpeg 编解码链路中的关键一环，上接 libavformat（负责封装与推流），下接 rkmpp 硬件驱动，配合 libavdevice（V4L2 采集）和 libswscale（格式转换）共同实现“采集→编码→推流”的完整管线。调用 libavcodec 时需注意 pkg-config 路径、链接依赖以及 C++ 环境下的 goto 绕过限制等问题。",
-  "source": "deepseek",
-  "model": "deepseek-v4-flash",
-  "updated_at": 1783498312
-}

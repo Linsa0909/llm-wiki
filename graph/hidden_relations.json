@@ -1,0 +1,58 @@
+{
+  "relations": [
+    {
+      "source": "02_技术地图-rk3588",
+      "target": "02_技术地图-容器镜像构建",
+      "label": "关联",
+      "updated_at": 1784688157
+    },
+    {
+      "source": "02_技术地图-ffmpeg",
+      "target": "02_技术地图-部署与运维",
+      "label": "关联",
+      "updated_at": 1784688157
+    },
+    {
+      "source": "02_技术地图-docker-ipc-模式与-ros-2-dds-共享内存",
+      "target": "topic-zlmediakit",
+      "label": "提到",
+      "updated_at": 1784688157
+    },
+    {
+      "source": "02_技术地图-zlmediakit",
+      "target": "topic-v4l2",
+      "label": "提到",
+      "updated_at": 1784688157
+    },
+    {
+      "source": "02_技术地图-rk3588",
+      "target": "topic-v4l2",
+      "label": "提到",
+      "updated_at": 1784688157
+    },
+    {
+      "source": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "target": "topic-v4l2",
+      "label": "提到",
+      "updated_at": 1784688157
+    },
+    {
+      "source": "02_技术地图-ffmpeg",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "关联",
+      "updated_at": 1784688157
+    },
+    {
+      "source": "02_技术地图-ffmpeg",
+      "target": "03_问题库-mino17-红外相机-rk3588-c-采集推流方案汇报",
+      "label": "引用",
+      "updated_at": 1784688157
+    },
+    {
+      "source": "02_技术地图-部署与运维",
+      "target": "02_技术地图-linux-shell",
+      "label": "关联",
+      "updated_at": 1784688157
+    }
+  ]
+}

@@ -18,6 +18,7 @@ links:
   - ZLMediaKit流媒体分发
 sources:
   - raw/imports/20260713-200504/Mino17Adapter-pipeline-lifecycle-build.md
+importance: high
 ---
 # Mino17Adapter 代码讲解：pipeline、生命周期与编译链接
 

@@ -24,6 +24,8 @@ PORT = int(os.environ.get("KB_PORT", "8765"))
 REBUILD = ROOT / "scripts" / "rebuild_graph.py"
 GRAPH = ROOT / "graph" / "graph.json"
 LAYOUT = ROOT / "graph" / "layout.json"
+MANUAL_RELATIONS = ROOT / "graph" / "manual_relations.json"
+HIDDEN_RELATIONS = ROOT / "graph" / "hidden_relations.json"
 DOC_DIRS = [ROOT / x for x in ["00_入口", "01_项目复盘", "02_技术地图", "03_问题库", "04_设备与部署"]]
 CACHE_DIR = ROOT / "graph" / "node_notes"
 ENV_FILE = ROOT / ".env.local"
@@ -44,6 +46,116 @@ load_env_file()
 DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
 DEEPSEEK_MODEL = os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-flash")
 DEEPSEEK_API_BASE = os.environ.get("DEEPSEEK_API_BASE", "https://api.deepseek.com/chat/completions")
+MERGE_KB_PROMPT = """你是一名技术文档编辑。请将我提供的多篇相关技术资料合并为一篇简洁、准确、适合长期沉淀在 GitHub/Obsidian 中的 Markdown 技术文档。
+
+资料内容大体相关，但可能有重复、项目背景、零散命令、API、协议、配置、报错记录和少量跑题内容。
+
+目标是生成一篇“技术知识整合文档”，不是项目报告、部署验收文档、需求文档或知识管理模板。
+
+# 核心要求
+
+1. 先在内部阅读全部资料，识别它们共同指向的中心技术主题。
+2. 围绕中心主题合并内容：
+   - 合并重复表述；
+   - 保留技术上更准确、更完整的内容；
+   - 将零散知识归入自然的主题段落；
+   - 不按原始资料顺序拼接。
+3. 主文档只保留与中心主题直接相关、具有学习和复用价值的内容。
+4. 项目特定的信息可以保留，但要简短标明其适用环境，例如：
+   - 在 RK3588 环境中……
+   - 在当前项目中……
+   不要把项目特例写成通用规律。
+5. 低相关内容、临时记录、重复内容不要混入正文，放到文末的 Backup。
+6. 不要输出你的分析过程、关键词统计、相关性分级、资料编号统计或主题识别过程。
+7. 不要默认生成架构图、流程图、表格或 Mermaid。
+   - 只有图能明显帮助理解模块关系、数据流或协议交互时才生成；
+   - Mermaid 必须能被渲染并转换为 PNG/SVG 图片后才允许输出；
+   - 如果无法生成图片，则使用普通 Markdown 分点说明，不输出 Mermaid 源码。
+8. 不要使用空泛模板文字，例如：
+   - “是什么 / 为什么重要 / 怎么用”
+   - “问题现象 / 原因 / 排查 / 处理”
+   - “易混淆点”
+   - “复习要点”
+   - “待确认列表”
+   除非这些表达自然地融入具体技术内容。
+
+# 输出格式
+
+直接输出一篇 Markdown 文档，整体风格接近高质量 GitHub README。
+
+使用以下基本结构，但可根据资料内容增删标题；不要保留空章节。
+
+---
+title: <中心技术主题>
+type: concept
+summary: <一句话描述本文沉淀的技术内容>
+tags:
+  - <标签>
+sources:
+  - <来源文档>
+---
+
+# <中心技术主题>
+
+用一小段说明这个技术主题的范围、核心目标或适用环境。
+
+## <第一个自然形成的主题>
+
+- 用分点说明概念、原理、限制、关键实现或注意事项。
+- 每个分点只表达一个明确事实或经验。
+- 必要时可在某个分点下继续使用子分点。
+- 技术名词、API 名称、协议名、变量名、文件名保持原样。
+
+## <第二个自然形成的主题>
+
+- 继续按内容逻辑整理。
+- 不要求固定为“概念”“架构”“流程”“部署”等标题。
+- 标题应直接反映实际知识，例如：
+  - `V4L2 输入与设备识别`
+  - `FFmpeg API 调用链`
+  - `h264_rkmpp 编码注意事项`
+  - `RTMP 推流与播放验证`
+  - `编译与运行时依赖`
+
+## 命令
+
+仅当资料中存在有价值的命令时保留本节。
+
+- 命令：`<命令>`
+  - 用途：<简短说明>
+  - 注意：<仅在确有必要时填写>
+
+- 命令：`<命令>`
+  - 用途：<简短说明>
+
+不要把每条命令做成表格；相近命令可以放在同一个分点下。
+
+## <其他确有必要的主题>
+
+- API、参数、协议字段、配置项、依赖、代码片段等，全部按自然主题分点写。
+- 仅在“字段或参数之间必须横向比较”时使用简短表格。
+- 代码仅保留能帮助理解的最小片段，不要复制大段原文。
+
+## Backup
+
+此部分只保留未进入正文、但未来可能有用的内容。
+
+- `<专题或内容名称>`：<为什么未纳入正文，以及后续可能用于什么>
+- `<项目专属记录>`：<适用环境或来源说明>
+- `<重复或低价值内容>`：<简短说明>
+
+# 写作风格
+
+- 中文输出。
+- 简洁、专业、自然，像维护良好的 GitHub README。
+- 以 Markdown 标题、短段落和分点为主。
+- 不滥用表格、引用块、加粗和多层标题。
+- 不使用“本项目成功实现”“核心亮点”“验收通过”等汇报式表述。
+- 不写输入资料中没有的结论、参数或命令。
+- 主文档的目标是让读者快速理解、查阅和复用该技术主题，而不是展示整理过程。
+
+现在请读取我接下来提供的全部资料，在内部完成主题识别、去重和筛选后，直接输出最终 Markdown 文档。
+"""
 
 TYPE_DIR = {
     "project": "01_项目复盘",
@@ -124,6 +236,44 @@ def save_layout_payload(payload: dict) -> dict:
     tmp.write_text(json.dumps(record, ensure_ascii=False, indent=2), encoding="utf-8")
     tmp.replace(LAYOUT)
     return {"ok": True, "saved": len(clean_positions), "updated_at": record["updated_at"]}
+
+
+def relation_key(source: str, target: str, label: str) -> str:
+    a, b = sorted([str(source), str(target)])
+    return f"{a}\t{b}\t{str(label)}"
+
+
+def read_relation_records(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return []
+    records = data.get("relations") if isinstance(data, dict) else data
+    return records if isinstance(records, list) else []
+
+
+def write_relation_records(path: Path, records: list[dict]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    clean: list[dict] = []
+    seen: set[str] = set()
+    for item in records:
+        if not isinstance(item, dict):
+            continue
+        source = str(item.get("source") or "").strip()
+        target = str(item.get("target") or "").strip()
+        label = str(item.get("label") or "关联").strip() or "关联"
+        if not source or not target or source == target:
+            continue
+        key = relation_key(source, target, label)
+        if key in seen:
+            continue
+        seen.add(key)
+        clean.append({"source": source, "target": target, "label": label, "updated_at": int(time.time())})
+    tmp = path.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps({"relations": clean}, ensure_ascii=False, indent=2), encoding="utf-8")
+    tmp.replace(path)
 
 
 def read_json_body(handler: http.server.BaseHTTPRequestHandler) -> dict:
@@ -324,14 +474,14 @@ def note_complete(note: str) -> bool:
     return bool(re.search(r"[。！？.!?）)]$", text))
 
 
-def call_deepseek(messages: list[dict]) -> str:
+def call_deepseek(messages: list[dict], max_tokens: int = 900, temperature: float = 0.2) -> str:
     if not DEEPSEEK_API_KEY:
         raise RuntimeError("DeepSeek API key 未配置。请在 .env.local 中设置 DEEPSEEK_API_KEY。")
     payload = {
         "model": DEEPSEEK_MODEL,
         "messages": messages,
-        "temperature": 0.2,
-        "max_tokens": 900,
+        "temperature": temperature,
+        "max_tokens": max_tokens,
     }
     data = json.dumps(payload, ensure_ascii=False).encode("utf-8")
     req = urllib.request.Request(
@@ -1019,6 +1169,98 @@ def read_doc_payload(doc_ref: str) -> dict:
     return {"ok": True, "title": title, "path": path.relative_to(ROOT).as_posix(), "content": text, "encoding_warning": warning or "?" in text}
 
 
+def save_doc_payload(payload: dict) -> dict:
+    doc_ref = str(payload.get("path") or payload.get("doc") or "").strip()
+    content = payload.get("content")
+    if not doc_ref:
+        raise ValueError("缺少文档路径。")
+    if not isinstance(content, str):
+        raise ValueError("缺少文档内容。")
+    path = resolve_doc_ref(doc_ref)
+    if not path:
+        raise FileNotFoundError("没有找到这个 Markdown 文档，或路径不在知识库目录内。")
+    path.write_text(content.replace("\r\n", "\n"), encoding="utf-8")
+    rebuild()
+    title = title_from_markdown(path.name, content)
+    return {"ok": True, "title": title, "path": path.relative_to(ROOT).as_posix(), "saved_at": time.strftime("%Y-%m-%d %H:%M:%S")}
+
+
+def set_frontmatter_scalar(text: str, key: str, value: str) -> str:
+    if text.startswith("---\n"):
+        end = text.find("\n---\n", 4)
+        if end >= 0:
+            raw = text[4:end]
+            body = text[end + 5:]
+            lines = raw.splitlines()
+            replaced = False
+            out: list[str] = []
+            skip_list = False
+            for line in lines:
+                if skip_list and line.startswith("  - "):
+                    continue
+                skip_list = False
+                if line.startswith(f"{key}:"):
+                    out.append(f"{key}: {value}")
+                    replaced = True
+                    if line.strip() == f"{key}:":
+                        skip_list = True
+                    continue
+                out.append(line)
+            if not replaced:
+                out.append(f"{key}: {value}")
+            return "---\n" + "\n".join(out).rstrip() + "\n---\n" + body
+    return f"---\n{key}: {value}\n---\n\n" + text
+
+
+def set_node_importance(payload: dict) -> dict:
+    node_id = str(payload.get("id") or "").strip()
+    importance = str(payload.get("importance") or "normal").strip().lower()
+    if importance not in {"normal", "high"}:
+        raise ValueError("importance 只能是 normal 或 high。")
+    if not node_id:
+        raise ValueError("缺少节点 id。")
+    graph = load_graph()
+    node = find_node(graph, node_id)
+    if not node:
+        raise FileNotFoundError("图谱中没有找到这个节点。")
+    path = resolve_doc_ref(str(node.get("doc") or ""))
+    if not path:
+        raise FileNotFoundError("这个节点没有可编辑的独立 Markdown 文档。")
+    text, warning = read_text_lossy(path)
+    if warning:
+        raise ValueError("该文档存在编码风险，暂不自动改写 frontmatter。")
+    path.write_text(set_frontmatter_scalar(text, "importance", importance), encoding="utf-8")
+    rebuild()
+    return {"ok": True, "id": node_id, "importance": importance, "path": path.relative_to(ROOT).as_posix()}
+
+
+def set_node_title(payload: dict) -> dict:
+    node_id = str(payload.get("id") or "").strip()
+    title = str(payload.get("title") or "").strip()
+    if not node_id:
+        raise ValueError("缺少节点 id。")
+    if node_id.startswith("topic-"):
+        raise ValueError("这是自动派生主题节点，不能直接改名。请编辑它的来源文档。")
+    if not title:
+        raise ValueError("节点名称不能为空。")
+    if len(title) > 120:
+        raise ValueError("节点名称太长，请控制在 120 个字符以内。")
+
+    graph = load_graph()
+    node = find_node(graph, node_id)
+    if not node:
+        raise FileNotFoundError("图谱中没有找到这个节点。")
+    path = resolve_doc_ref(str(node.get("doc") or ""))
+    if not path:
+        raise FileNotFoundError("这个节点没有可编辑的独立 Markdown 文档。")
+    text, warning = read_text_lossy(path)
+    if warning:
+        raise ValueError("该文档存在编码风险，暂不自动改写 frontmatter。")
+    path.write_text(set_frontmatter_scalar(text, "title", title), encoding="utf-8")
+    rebuild()
+    return {"ok": True, "id": node_id, "title": title, "path": path.relative_to(ROOT).as_posix()}
+
+
 def delete_node_doc(payload: dict) -> dict:
     node_id = str(payload.get("id") or "").strip()
     confirm = bool(payload.get("confirm"))
@@ -1071,6 +1313,108 @@ def delete_node_doc(payload: dict) -> dict:
         "archived_to": target.relative_to(ROOT).as_posix(),
         "note_deleted": note_deleted,
     }
+
+
+def relation_payload_ids(payload: dict) -> tuple[str, str, str]:
+    source = str(payload.get("source") or payload.get("source_id") or "").strip()
+    target = str(payload.get("target") or payload.get("target_id") or "").strip()
+    label = str(payload.get("label") or "关联").strip() or "关联"
+    if not source or not target:
+        raise ValueError("缺少 source 或 target。")
+    if source == target:
+        raise ValueError("不能把节点关联到自己。")
+    graph = load_graph()
+    node_ids = {str(node.get("id")) for node in graph.get("nodes", [])}
+    if source not in node_ids:
+        raise ValueError("source 节点不存在。")
+    if target not in node_ids:
+        raise ValueError("target 节点不存在。")
+    return source, target, label
+
+
+def add_relation(payload: dict) -> dict:
+    source, target, label = relation_payload_ids(payload)
+    key = relation_key(source, target, label)
+
+    manual = read_relation_records(MANUAL_RELATIONS)
+    if not any(relation_key(str(x.get("source")), str(x.get("target")), str(x.get("label") or "关联")) == key for x in manual if isinstance(x, dict)):
+        manual.append({"source": source, "target": target, "label": label})
+        write_relation_records(MANUAL_RELATIONS, manual)
+
+    hidden = [
+        x for x in read_relation_records(HIDDEN_RELATIONS)
+        if isinstance(x, dict) and relation_key(str(x.get("source")), str(x.get("target")), str(x.get("label") or "关联")) != key
+    ]
+    write_relation_records(HIDDEN_RELATIONS, hidden)
+    rebuild()
+    return {"ok": True, "source": source, "target": target, "label": label, "mode": "manual"}
+
+
+def add_relations(payload: dict) -> dict:
+    ids = payload.get("ids")
+    label = str(payload.get("label") or "关联").strip() or "关联"
+    if not isinstance(ids, list):
+        raise ValueError("缺少 ids 列表。")
+    ids = [str(x).strip() for x in ids if str(x).strip()]
+    ids = list(dict.fromkeys(ids))
+    if len(ids) < 2:
+        raise ValueError("至少选择 2 个节点。")
+
+    graph = load_graph()
+    node_ids = {str(node.get("id")) for node in graph.get("nodes", [])}
+    missing = [node_id for node_id in ids if node_id not in node_ids]
+    if missing:
+        raise ValueError("图谱中找不到这些节点：" + "、".join(missing[:5]))
+
+    manual = read_relation_records(MANUAL_RELATIONS)
+    existing = {
+        relation_key(str(x.get("source")), str(x.get("target")), str(x.get("label") or "关联"))
+        for x in manual
+        if isinstance(x, dict)
+    }
+    target_keys: set[str] = set()
+    added = 0
+    for idx, source in enumerate(ids):
+        for target in ids[idx + 1:]:
+            key = relation_key(source, target, label)
+            target_keys.add(key)
+            if key in existing:
+                continue
+            manual.append({"source": source, "target": target, "label": label})
+            existing.add(key)
+            added += 1
+    write_relation_records(MANUAL_RELATIONS, manual)
+
+    hidden = [
+        x for x in read_relation_records(HIDDEN_RELATIONS)
+        if isinstance(x, dict) and relation_key(str(x.get("source")), str(x.get("target")), str(x.get("label") or "关联")) not in target_keys
+    ]
+    write_relation_records(HIDDEN_RELATIONS, hidden)
+    rebuild()
+    return {"ok": True, "count": added, "checked": len(target_keys), "label": label}
+
+
+def delete_relation(payload: dict) -> dict:
+    source, target, label = relation_payload_ids(payload)
+    key = relation_key(source, target, label)
+
+    manual = read_relation_records(MANUAL_RELATIONS)
+    new_manual = [
+        x for x in manual
+        if isinstance(x, dict) and relation_key(str(x.get("source")), str(x.get("target")), str(x.get("label") or "关联")) != key
+    ]
+    removed_manual = len(new_manual) != len(manual)
+    write_relation_records(MANUAL_RELATIONS, new_manual)
+
+    hidden = read_relation_records(HIDDEN_RELATIONS)
+    if not removed_manual and not any(relation_key(str(x.get("source")), str(x.get("target")), str(x.get("label") or "关联")) == key for x in hidden if isinstance(x, dict)):
+        hidden.append({"source": source, "target": target, "label": label})
+        write_relation_records(HIDDEN_RELATIONS, hidden)
+    elif removed_manual:
+        write_relation_records(HIDDEN_RELATIONS, hidden)
+
+    rebuild()
+    return {"ok": True, "source": source, "target": target, "label": label, "mode": "removed_manual" if removed_manual else "hidden"}
 
 
 def build_doc_ai_append_prompt(title: str, rel_path: str, current_text: str, instruction: str, node: dict | None, neighbors: list[dict]) -> list[dict]:
@@ -1147,11 +1491,303 @@ def append_doc_ai_update(payload: dict) -> dict:
     return {"ok": True, "path": rel, "title": title, "addition": addition, "updated_at": stamp}
 
 
+def strip_markdown_fence(text: str) -> str:
+    text = text.strip()
+    text = re.sub(r"^```(?:markdown|md)?\s*", "", text, flags=re.I)
+    text = re.sub(r"\s*```$", "", text)
+    return text.strip()
+
+
+def extract_merge_title(markdown: str, fallback_labels: list[str], requested_title: str = "") -> str:
+    requested_title = requested_title.strip()
+    if requested_title:
+        return requested_title[:80]
+    fm, body = parse_frontmatter_text(markdown)
+    if fm.get("title"):
+        return str(fm["title"]).strip()[:80]
+    for line in body.splitlines():
+        if line.startswith("# "):
+            title = line[2:].strip()
+            if title:
+                return title[:80]
+    patterns = [
+        r"本批资料的中心主题是[:：]\s*(?:围绕)?\s*(.+?)(?:整理|。|\n|$)",
+        r"###\s*1\.1\s*中心主题\s*\n+(.+?)(?:\n#{1,4}\s|\Z)",
+        r"###\s*0\.2\s*最终中心主题\s*\n+(.+?)(?:\n#{1,4}\s|\Z)",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, markdown, flags=re.S)
+        if not match:
+            continue
+        title = re.sub(r"[>#*`_\[\]：:。]", "", match.group(1)).strip()
+        title = re.sub(r"\s+", " ", title)
+        if 4 <= len(title) <= 80:
+            return title
+    head = fallback_labels[0] if fallback_labels else "技术知识"
+    suffix = f"等{len(fallback_labels)}节点" if len(fallback_labels) > 1 else ""
+    return f"{head}{suffix} 整合"
+
+
+def frontmatter_list(value: object) -> list[str]:
+    if isinstance(value, list):
+        return [str(x).strip() for x in value if str(x).strip()]
+    if isinstance(value, str) and value.strip():
+        return [value.strip()]
+    return []
+
+
+def write_merge_frontmatter(title: str, summary: str, tags: list[str], sources: list[str], created_at: str) -> str:
+    lines = [
+        "---",
+        f"title: {title}",
+        "type: concept",
+        "merged: true",
+        f"summary: {summary}",
+        f"created_at: {created_at}",
+        "tags:",
+    ]
+    lines += [f"  - {tag}" for tag in (tags or ["合并", "AI整理"])]
+    lines += ["sources:"]
+    lines += [f"  - {src}" for src in sources]
+    lines += ["---", ""]
+    return "\n".join(lines)
+
+
+def normalize_merged_markdown(markdown: str, fallback_title: str, sources: list[str], created_at: str) -> tuple[str, str]:
+    fm, body = parse_frontmatter_text(markdown)
+    title = str(fallback_title or fm.get("title") or "").strip() or str(fm.get("title") or "").strip() or "技术知识整合"
+    summary = str(fm.get("summary") or "由多篇相关资料合并生成的技术知识整合文档。").strip()
+    tags = frontmatter_list(fm.get("tags")) or ["合并", "AI整理"]
+    body = body.strip()
+    if not body.startswith("# "):
+        body = f"# {title}\n\n{body}"
+    content = write_merge_frontmatter(title, summary, tags, sources, created_at) + body.rstrip() + "\n"
+    return title, content
+
+
+def build_merge_documents_prompt(nodes_to_merge: list[dict], source_docs: list[dict]) -> list[dict]:
+    node_brief = [
+        {
+            "id": node.get("id"),
+            "label": node.get("label"),
+            "type": node.get("type"),
+            "summary": node.get("summary", ""),
+            "doc": node.get("doc", ""),
+            "tags": node.get("tags", []),
+        }
+        for node in nodes_to_merge
+    ]
+    body_parts: list[str] = []
+    budget = 28000
+    used = 0
+    for idx, item in enumerate(source_docs, start=1):
+        room = max(1200, budget - used)
+        excerpt = item["text"][:room]
+        used += len(excerpt)
+        body_parts.append(
+            f"## 资料 {idx}：{item['title']}\n\n"
+            f"来源路径：{item['path']}\n\n"
+            f"```markdown\n{excerpt}\n```"
+        )
+        if used >= budget:
+            break
+    return [
+        {
+            "role": "system",
+            "content": (
+                "你是个人技术知识库的知识重构助手。你必须只根据用户提供的资料整理，"
+                "不要编造资料中没有的命令、API、配置项、报错或项目事实。输出必须是一篇完整 Markdown 文档。"
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                f"{MERGE_KB_PROMPT}\n\n"
+                "# 选中的知识图谱节点\n\n"
+                f"```json\n{json.dumps(node_brief, ensure_ascii=False, indent=2)}\n```\n\n"
+                "# 待合并的来源资料\n\n"
+                + "\n\n".join(body_parts)
+            ),
+        },
+    ]
+
+
+def collect_merge_sources(nodes_to_merge: list[dict]) -> list[dict]:
+    result: list[dict] = []
+    seen: set[str] = set()
+    for node in nodes_to_merge:
+        refs: list[str] = []
+        if node.get("doc"):
+            refs.append(str(node.get("doc")))
+        for key in ("docs", "sources"):
+            value = node.get(key)
+            if isinstance(value, list):
+                refs.extend(str(x) for x in value if x)
+        for ref in refs:
+            path = resolve_doc_ref(ref)
+            if not path:
+                continue
+            rel = path.relative_to(ROOT).as_posix()
+            if rel in seen:
+                continue
+            seen.add(rel)
+            text, warning = read_text_lossy(path)
+            if warning:
+                continue
+            result.append({"path": rel, "title": title_from_markdown(path.name, text), "text": text})
+    return result
+
+
+def archive_merged_source_nodes(node_ids: list[str], nodes_to_merge: list[dict], stamp: str) -> list[dict]:
+    archive_dir = ROOT / "raw" / "merged" / stamp
+    archive_dir.mkdir(parents=True, exist_ok=True)
+    archived: list[dict] = []
+    moved_paths: set[str] = set()
+
+    for node in nodes_to_merge:
+        node_id = str(node.get("id") or "")
+        doc_ref = str(node.get("doc") or "").strip()
+        path = resolve_doc_ref(doc_ref)
+        if path:
+            try:
+                rel = path.relative_to(ROOT).as_posix()
+            except ValueError:
+                rel = ""
+            in_wiki_dir = any(path.is_relative_to(base) for base in DOC_DIRS if base.exists())
+            if rel and in_wiki_dir and rel not in moved_paths:
+                target = archive_dir / path.name
+                counter = 2
+                while target.exists():
+                    target = archive_dir / f"{path.stem}-{counter}{path.suffix}"
+                    counter += 1
+                shutil.move(str(path), str(target))
+                moved_paths.add(rel)
+                archived.append({
+                    "id": node_id,
+                    "title": node.get("label") or node_id,
+                    "from": rel,
+                    "to": target.relative_to(ROOT).as_posix(),
+                })
+
+        note_path = cache_path(node_id)
+        if note_path.exists():
+            note_path.unlink()
+
+    layout = read_layout_payload()
+    positions = layout.get("positions")
+    if isinstance(positions, dict):
+        changed = False
+        for node_id in node_ids:
+            if node_id in positions:
+                positions.pop(node_id, None)
+                changed = True
+        if changed:
+            save_layout_payload({"positions": positions, "viewport": layout.get("viewport", {})})
+
+    blocked = set(node_ids)
+    for relation_file in (MANUAL_RELATIONS, HIDDEN_RELATIONS):
+        kept = [
+            item for item in read_relation_records(relation_file)
+            if isinstance(item, dict)
+            and str(item.get("source") or "") not in blocked
+            and str(item.get("target") or "") not in blocked
+        ]
+        write_relation_records(relation_file, kept)
+
+    return archived
+
+
+def merge_nodes(payload: dict) -> dict:
+    ids = payload.get("ids")
+    if not isinstance(ids, list):
+        raise ValueError("缺少 ids 列表。")
+    ids = [str(x).strip() for x in ids if str(x).strip()]
+    ids = list(dict.fromkeys(ids))
+    if len(ids) < 2:
+        raise ValueError("至少选择 2 个节点才能合并。")
+
+    graph = load_graph()
+    by_id = {str(node.get("id")): node for node in graph.get("nodes", [])}
+    nodes_to_merge: list[dict] = []
+    missing: list[str] = []
+    for node_id in ids:
+        node = by_id.get(node_id)
+        if node:
+            nodes_to_merge.append(node)
+        else:
+            missing.append(node_id)
+    if missing:
+        raise ValueError("图谱中找不到这些节点：" + "、".join(missing[:5]))
+
+    source_docs = collect_merge_sources(nodes_to_merge)
+    if not source_docs:
+        raise ValueError("选中的节点没有可读取的 Markdown 来源文档。")
+
+    markdown = call_deepseek(
+        build_merge_documents_prompt(nodes_to_merge, source_docs),
+        max_tokens=4200,
+        temperature=0.15,
+    )
+    markdown = strip_markdown_fence(markdown)
+    if len(markdown) < 300:
+        raise RuntimeError("DeepSeek 返回内容过短，未写入合并文档。")
+
+    labels = [str(node.get("label") or node.get("id")) for node in nodes_to_merge]
+    title_core = extract_merge_title(markdown, labels, str(payload.get("title") or ""))
+    title = title_core
+    dirname = TYPE_DIR.get("concept", "02_技术地图")
+    base = ROOT / dirname
+    base.mkdir(parents=True, exist_ok=True)
+    stem = safe_id(title)
+    path = base / f"{stem}.md"
+    counter = 2
+    while path.exists():
+        path = base / f"{stem}-{counter}.md"
+        counter += 1
+
+    created_at = time.strftime("%Y%m%d-%H%M%S")
+    source_paths = [item["path"] for item in source_docs]
+    title, content = normalize_merged_markdown(markdown, title, source_paths, created_at)
+    path.write_text(content, encoding="utf-8")
+
+    archived = archive_merged_source_nodes(ids, nodes_to_merge, created_at)
+    archived_paths = [item["to"] for item in archived]
+    if archived_paths:
+        title, content = normalize_merged_markdown(markdown, title, archived_paths, created_at)
+        path.write_text(content, encoding="utf-8")
+
+    rebuild()
+    rel = path.relative_to(ROOT).as_posix()
+    fresh_graph = load_graph()
+    merged_node = None
+    for node in fresh_graph.get("nodes", []):
+        if node.get("doc") == "../" + rel or node.get("label") == title:
+            merged_node = node
+            break
+
+    merged_id = str(merged_node.get("id")) if merged_node else ""
+    return {
+        "ok": True,
+        "title": title,
+        "path": rel,
+        "node_id": merged_id,
+        "source_nodes": labels,
+        "source_docs": source_paths,
+        "archived": archived,
+        "model": DEEPSEEK_MODEL,
+    }
+
+
 class KnowledgeHandler(http.server.SimpleHTTPRequestHandler):
     def guess_type(self, path: str) -> str:
         if path.lower().endswith(".md"):
             return "text/markdown; charset=utf-8"
         return super().guess_type(path)
+
+    def end_headers(self) -> None:
+        self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
+        self.send_header("Pragma", "no-cache")
+        super().end_headers()
 
     def _send_json(self, status: int, payload: dict) -> None:
         data = json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")
@@ -1255,6 +1891,27 @@ class KnowledgeHandler(http.server.SimpleHTTPRequestHandler):
                 self._send_json(400, {"ok": False, "message": str(exc)})
             return
 
+        if parsed.path == "/api/doc-save":
+            try:
+                self._send_json(200, save_doc_payload(payload))
+            except Exception as exc:
+                self._send_json(400, {"ok": False, "message": str(exc)})
+            return
+
+        if parsed.path == "/api/node-importance":
+            try:
+                self._send_json(200, set_node_importance(payload))
+            except Exception as exc:
+                self._send_json(400, {"ok": False, "message": str(exc)})
+            return
+
+        if parsed.path == "/api/node-title":
+            try:
+                self._send_json(200, set_node_title(payload))
+            except Exception as exc:
+                self._send_json(400, {"ok": False, "message": str(exc)})
+            return
+
         if parsed.path == "/api/import-md":
             try:
                 self._send_json(200, import_markdown(payload))
@@ -1272,6 +1929,34 @@ class KnowledgeHandler(http.server.SimpleHTTPRequestHandler):
         if parsed.path == "/api/node-delete":
             try:
                 self._send_json(200, delete_node_doc(payload))
+            except Exception as exc:
+                self._send_json(400, {"ok": False, "message": str(exc)})
+            return
+
+        if parsed.path == "/api/relation-add":
+            try:
+                self._send_json(200, add_relation(payload))
+            except Exception as exc:
+                self._send_json(400, {"ok": False, "message": str(exc)})
+            return
+
+        if parsed.path == "/api/relation-add-batch":
+            try:
+                self._send_json(200, add_relations(payload))
+            except Exception as exc:
+                self._send_json(400, {"ok": False, "message": str(exc)})
+            return
+
+        if parsed.path == "/api/relation-delete":
+            try:
+                self._send_json(200, delete_relation(payload))
+            except Exception as exc:
+                self._send_json(400, {"ok": False, "message": str(exc)})
+            return
+
+        if parsed.path == "/api/nodes-merge":
+            try:
+                self._send_json(200, merge_nodes(payload))
             except Exception as exc:
                 self._send_json(400, {"ok": False, "message": str(exc)})
             return
